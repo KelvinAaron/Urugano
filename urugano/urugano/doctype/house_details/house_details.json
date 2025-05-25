@@ -1,0 +1,110 @@
+{
+ "actions": [],
+ "allow_guest_to_view": 1,
+ "allow_rename": 1,
+ "creation": "2025-05-11 15:40:47.218340",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "landlord",
+  "img_1",
+  "no_of_rooms",
+  "published",
+  "column_break_dvli",
+  "address",
+  "contact_info",
+  "price",
+  "route",
+  "section_break_rmzp",
+  "tenants"
+ ],
+ "fields": [
+  {
+   "fieldname": "landlord",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Owner",
+   "options": "Landlord",
+   "reqd": 1
+  },
+  {
+   "fieldname": "img_1",
+   "fieldtype": "Attach Image",
+   "label": "IMG 1"
+  },
+  {
+   "fieldname": "column_break_dvli",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "Address"
+  },
+  {
+   "fetch_from": "landlord.phone",
+   "fieldname": "contact_info",
+   "fieldtype": "Data",
+   "label": "Contact Info"
+  },
+  {
+   "fieldname": "no_of_rooms",
+   "fieldtype": "Int",
+   "label": "No of Rooms"
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "label": "Price"
+  },
+  {
+   "fieldname": "section_break_rmzp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "tenants",
+   "fieldtype": "Table",
+   "label": "Tenants",
+   "options": "Tenants"
+  },
+  {
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Route"
+  },
+  {
+   "default": "0",
+   "fieldname": "published",
+   "fieldtype": "Check",
+   "label": "Published"
+  }
+ ],
+ "grid_page_length": 50,
+ "has_web_view": 1,
+ "index_web_pages_for_search": 1,
+ "is_published_field": "published",
+ "links": [],
+ "modified": "2025-05-16 16:44:41.502013",
+ "modified_by": "Administrator",
+ "module": "Urugano",
+ "name": "House Details",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "route": "houses",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
