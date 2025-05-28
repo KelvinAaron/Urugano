@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}My Custom Web Page{% endblock %}</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body>
+
+    <header class="bg-blue-500 text-white text-2xl py-2 px-4 flex justify-between font-bold">
+        <h2>My Site Header</h2>
+        <div class="flex space-x-4">
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Login</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto mt-4">
+        {% block page_content %}
+        <!-- Page content goes here -->
+        {% endblock %}
+    </main>
+
+    <footer class="bg-gray-200 text-center py-2 absolute bottom-0 w-full">
+        <p>&copy; 2025 My Custom Site</p>
+    </footer>
+
+</body>
+</html>

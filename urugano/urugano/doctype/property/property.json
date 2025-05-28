@@ -6,24 +6,27 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "landlord",
-  "img_1",
-  "no_of_rooms",
+  "route",
+  "column_break_vneb",
   "published",
+  "section_break_qnoz",
+  "landlord",
+  "no_of_rooms",
   "column_break_dvli",
   "address",
   "contact_info",
   "price",
-  "route",
-  "section_break_rmzp",
-  "tenants"
+  "section_break_dcop",
+  "description",
+  "section_break_hrjw",
+  "img_1"
  ],
  "fields": [
   {
    "fieldname": "landlord",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Owner",
+   "label": "Landlord",
    "options": "Landlord",
    "reqd": 1
   },
@@ -38,8 +41,9 @@
   },
   {
    "fieldname": "address",
-   "fieldtype": "Data",
-   "label": "Address"
+   "fieldtype": "Link",
+   "label": "Address",
+   "options": "Property Address"
   },
   {
    "fetch_from": "landlord.phone",
@@ -58,16 +62,6 @@
    "label": "Price"
   },
   {
-   "fieldname": "section_break_rmzp",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "tenants",
-   "fieldtype": "Table",
-   "label": "Tenants",
-   "options": "Tenants"
-  },
-  {
    "fieldname": "route",
    "fieldtype": "Data",
    "label": "Route"
@@ -77,17 +71,37 @@
    "fieldname": "published",
    "fieldtype": "Check",
    "label": "Published"
+  },
+  {
+   "fieldname": "column_break_vneb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_qnoz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_hrjw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_dcop",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Long Text",
+   "label": "Description"
   }
  ],
  "grid_page_length": 50,
- "has_web_view": 1,
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2025-05-16 16:44:41.502013",
+ "modified": "2025-05-26 22:38:18.421233",
  "modified_by": "Administrator",
  "module": "Urugano",
- "name": "House Details",
+ "name": "Property",
  "owner": "Administrator",
  "permissions": [
   {
@@ -103,7 +117,8 @@
    "write": 1
   }
  ],
- "route": "houses",
+ "route": "property",
+ "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []

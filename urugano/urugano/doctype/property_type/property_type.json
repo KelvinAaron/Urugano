@@ -1,42 +1,31 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:LL-{####}",
- "creation": "2025-05-11 15:36:55.817098",
+ "autoname": "field:property_type",
+ "creation": "2025-05-25 18:32:17.155107",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "name1",
-  "email",
-  "phone"
+  "property_type"
  ],
  "fields": [
   {
-   "fieldname": "name1",
+   "fieldname": "property_type",
    "fieldtype": "Data",
-   "label": "Name"
-  },
-  {
-   "fieldname": "email",
-   "fieldtype": "Data",
-   "label": "Email",
-   "options": "Email"
-  },
-  {
-   "fieldname": "phone",
-   "fieldtype": "Data",
-   "label": "Phone",
-   "options": "Phone"
+   "in_list_view": 1,
+   "label": "Property Type",
+   "reqd": 1,
+   "unique": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-25 18:29:00.710197",
+ "modified": "2025-05-25 18:33:13.565602",
  "modified_by": "Administrator",
  "module": "Urugano",
- "name": "Landlord",
- "naming_rule": "Expression",
+ "name": "Property Type",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
