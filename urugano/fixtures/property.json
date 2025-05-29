@@ -1,0 +1,77 @@
+[
+ {
+  "amenities": [
+   {
+    "amenity": "Microwave",
+    "parent": "PR-Apartment-0005",
+    "parentfield": "amenities",
+    "parenttype": "Property",
+    "quantity": 1
+   }
+  ],
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Property",
+  "furnished": 1,
+  "gallery": [
+   {
+    "image": "/files/colafrica.jpg",
+    "label": "Interior",
+    "parent": "PR-Apartment-0005",
+    "parentfield": "gallery",
+    "parenttype": "Property"
+   },
+   {
+    "image": "/files/White and Green Simple  Professional Business Project Presentation (2).jpg",
+    "label": "Something",
+    "parent": "PR-Apartment-0005",
+    "parentfield": "gallery",
+    "parenttype": "Property"
+   }
+  ],
+  "image": "/files/colafrica.jpg",
+  "landlord": "LL-0002",
+  "location": "Zindiro",
+  "modified": "2025-05-29 21:14:48.030605",
+  "name": "PR-Apartment-0005",
+  "no_of_rooms": 1,
+  "price": 250000.0,
+  "property_type": "Apartment",
+  "published": 1,
+  "title": "Tech Standing"
+ },
+ {
+  "amenities": [
+   {
+    "amenity": "Fridge",
+    "parent": "PR-Apartment-0004",
+    "parentfield": "amenities",
+    "parenttype": "Property",
+    "quantity": 1
+   }
+  ],
+  "description": null,
+  "docstatus": 0,
+  "doctype": "Property",
+  "furnished": 1,
+  "gallery": [
+   {
+    "image": "/files/aer.png",
+    "label": "Exterior",
+    "parent": "PR-Apartment-0004",
+    "parentfield": "gallery",
+    "parenttype": "Property"
+   }
+  ],
+  "image": "/files/aer.png",
+  "landlord": "LL-0001",
+  "location": "Zindiro",
+  "modified": "2025-05-29 21:14:40.675829",
+  "name": "PR-Apartment-0004",
+  "no_of_rooms": 4,
+  "price": 200000.0,
+  "property_type": "Apartment",
+  "published": 1,
+  "title": "Valley View"
+ }
+]

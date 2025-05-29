@@ -1,0 +1,24 @@
+[
+ {
+  "amenity": "Fridge",
+  "docstatus": 0,
+  "doctype": "Amenity Item",
+  "modified": "2025-05-29 21:14:40.675829",
+  "name": "5203mihfqb",
+  "parent": "PR-Apartment-0004",
+  "parentfield": "amenities",
+  "parenttype": "Property",
+  "quantity": 1
+ },
+ {
+  "amenity": "Microwave",
+  "docstatus": 0,
+  "doctype": "Amenity Item",
+  "modified": "2025-05-29 21:14:48.030605",
+  "name": "6ld2moc9kp",
+  "parent": "PR-Apartment-0005",
+  "parentfield": "amenities",
+  "parenttype": "Property",
+  "quantity": 1
+ }
+]

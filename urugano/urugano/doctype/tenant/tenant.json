@@ -1,6 +1,6 @@
 {
  "actions": [],
- "allow_rename": 1,
+ "autoname": "format:TEN-{#####}",
  "creation": "2025-05-11 15:39:17.316607",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -14,7 +14,8 @@
    "fieldname": "name1",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Name"
+   "label": "Name",
+   "reqd": 1
   },
   {
    "fieldname": "email",
@@ -34,10 +35,11 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-25 18:28:14.904471",
+ "modified": "2025-05-29 18:15:48.266316",
  "modified_by": "Administrator",
  "module": "Urugano",
- "name": "Tenants",
+ "name": "Tenant",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -53,8 +55,10 @@
    "write": 1
   }
  ],
- "row_format": "Dynamic",
+ "search_fields": "name1",
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "name1"
 }

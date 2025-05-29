@@ -1,0 +1,17 @@
+{
+  "name": "urugano",
+  "version": "1.0.0",
+  "description": "User friendly experience for foreigners in Rwanda",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwind": "npx @tailwindcss/cli -i ./urugano/templates/base.css -o ./urugano/public/css/style.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.8",
+    "tailwindcss": "^4.1.8"
+  }
+}

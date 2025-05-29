@@ -1,0 +1,16 @@
+[
+ {
+  "amenity_name": "Fridge",
+  "docstatus": 0,
+  "doctype": "Amenity",
+  "modified": "2025-05-29 19:38:28.977093",
+  "name": "Fridge"
+ },
+ {
+  "amenity_name": "Microwave",
+  "docstatus": 0,
+  "doctype": "Amenity",
+  "modified": "2025-05-29 19:41:20.470394",
+  "name": "Microwave"
+ }
+]

@@ -1,29 +1,27 @@
 {
  "actions": [],
- "autoname": "field:property_type",
- "creation": "2025-05-25 18:32:17.155107",
+ "autoname": "field:amenity_name",
+ "creation": "2025-05-29 17:41:43.571326",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "property_type"
+  "amenity_name"
  ],
  "fields": [
   {
-   "fieldname": "property_type",
+   "fieldname": "amenity_name",
    "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Property Type",
-   "reqd": 1,
+   "label": "Amenity Name",
    "unique": 1
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-29 18:13:23.512078",
+ "modified": "2025-05-29 18:12:41.462798",
  "modified_by": "Administrator",
  "module": "Urugano",
- "name": "Property Type",
+ "name": "Amenity",
  "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [

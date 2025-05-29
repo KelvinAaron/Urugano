@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestPropertyAddress(FrappeTestCase):
+class TestAmenity(FrappeTestCase):
 	pass

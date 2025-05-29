@@ -1,7 +1,7 @@
 // Copyright (c) 2025, Kelvin and contributors
 // For license information, please see license.txt
 
-// frappe.ui.form.on("Property Address", {
+// frappe.ui.form.on("Amenity", {
 // 	refresh(frm) {
 
 // 	},

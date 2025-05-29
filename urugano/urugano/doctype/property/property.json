@@ -1,25 +1,30 @@
 {
  "actions": [],
  "allow_guest_to_view": 1,
- "allow_rename": 1,
+ "autoname": "format:PR-{property_type}-{####}",
  "creation": "2025-05-11 15:40:47.218340",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "route",
   "column_break_vneb",
+  "title",
+  "property_type",
+  "column_break_loml",
+  "image",
   "published",
+  "furnished",
   "section_break_qnoz",
   "landlord",
   "no_of_rooms",
   "column_break_dvli",
-  "address",
-  "contact_info",
+  "location",
   "price",
+  "section_break_wlud",
+  "amenities",
   "section_break_dcop",
   "description",
-  "section_break_hrjw",
-  "img_1"
+  "gallery_tab",
+  "gallery"
  ],
  "fields": [
   {
@@ -27,44 +32,24 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Landlord",
-   "options": "Landlord",
-   "reqd": 1
-  },
-  {
-   "fieldname": "img_1",
-   "fieldtype": "Attach Image",
-   "label": "IMG 1"
+   "options": "Landlord"
   },
   {
    "fieldname": "column_break_dvli",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "address",
-   "fieldtype": "Link",
-   "label": "Address",
-   "options": "Property Address"
-  },
-  {
-   "fetch_from": "landlord.phone",
-   "fieldname": "contact_info",
-   "fieldtype": "Data",
-   "label": "Contact Info"
-  },
-  {
    "fieldname": "no_of_rooms",
    "fieldtype": "Int",
-   "label": "No of Rooms"
+   "label": "No of Rooms",
+   "non_negative": 1
   },
   {
    "fieldname": "price",
    "fieldtype": "Currency",
-   "label": "Price"
-  },
-  {
-   "fieldname": "route",
-   "fieldtype": "Data",
-   "label": "Route"
+   "label": "Price",
+   "non_negative": 1,
+   "precision": "2"
   },
   {
    "default": "0",
@@ -81,10 +66,6 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "section_break_hrjw",
-   "fieldtype": "Section Break"
-  },
-  {
    "fieldname": "section_break_dcop",
    "fieldtype": "Section Break"
   },
@@ -92,16 +73,72 @@
    "fieldname": "description",
    "fieldtype": "Long Text",
    "label": "Description"
+  },
+  {
+   "default": "0",
+   "fieldname": "furnished",
+   "fieldtype": "Check",
+   "label": "Furnished"
+  },
+  {
+   "fieldname": "column_break_loml",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Location"
+  },
+  {
+   "fieldname": "gallery_tab",
+   "fieldtype": "Tab Break",
+   "label": "Gallery"
+  },
+  {
+   "fieldname": "gallery",
+   "fieldtype": "Table",
+   "label": "Gallery",
+   "options": "Gallery"
+  },
+  {
+   "fieldname": "property_type",
+   "fieldtype": "Link",
+   "label": "Property Type",
+   "options": "Property Type"
+  },
+  {
+   "fieldname": "section_break_wlud",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amenities",
+   "fieldtype": "Table",
+   "label": "Amenities",
+   "options": "Amenity Item"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "image"
+  },
+  {
+   "fieldname": "title",
+   "fieldtype": "Data",
+   "label": "Title",
+   "reqd": 1
   }
  ],
  "grid_page_length": 50,
+ "image_field": "image",
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2025-05-26 22:38:18.421233",
+ "modified": "2025-05-29 21:44:09.099438",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Property",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
@@ -117,9 +154,10 @@
    "write": 1
   }
  ],
- "route": "property",
- "row_format": "Dynamic",
+ "route": "listings/[name].html",
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "title"
 }

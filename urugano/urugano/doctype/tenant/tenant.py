@@ -5,5 +5,5 @@
 from frappe.model.document import Document
 
 
-class PropertyAddress(Document):
+class Tenant(Document):
 	pass

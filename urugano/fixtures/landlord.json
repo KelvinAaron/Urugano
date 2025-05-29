@@ -1,0 +1,29 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Landlord",
+  "email": "fort@gmail.com",
+  "modified": "2025-05-16 14:54:20.807967",
+  "name": "LL-0003",
+  "name1": "Fort Grant",
+  "phone": "0798782387"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Landlord",
+  "email": "john@gmail.com",
+  "modified": "2025-05-16 14:53:32.451884",
+  "name": "LL-0001",
+  "name1": "Chips Ugo",
+  "phone": "0793456172"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Landlord",
+  "email": "kel@gmail.com",
+  "modified": "2025-05-16 14:53:56.653328",
+  "name": "LL-0002",
+  "name1": "Kelly Joan",
+  "phone": "0783923234"
+ }
+]

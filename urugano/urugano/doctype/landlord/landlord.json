@@ -1,7 +1,6 @@
 {
  "actions": [],
- "allow_rename": 1,
- "autoname": "format:LL-{####}",
+ "autoname": "format:LLD-{####}",
  "creation": "2025-05-11 15:36:55.817098",
  "doctype": "DocType",
  "engine": "InnoDB",
@@ -14,7 +13,9 @@
   {
    "fieldname": "name1",
    "fieldtype": "Data",
-   "label": "Name"
+   "in_list_view": 1,
+   "label": "Name",
+   "reqd": 1
   },
   {
    "fieldname": "email",
@@ -32,7 +33,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-25 18:29:00.710197",
+ "modified": "2025-05-29 18:17:30.328810",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Landlord",
@@ -52,8 +53,10 @@
    "write": 1
   }
  ],
- "row_format": "Dynamic",
+ "search_fields": "name1",
+ "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "name1"
 }

@@ -242,3 +242,11 @@ app_license = "mit"
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
+fixtures = [
+    # export all records from the Category table
+    "Property", "Landlord", "Location", "Tenant", "Property Type", "Amenity", "Gallery", "Amenity Item"
+]
+
+
+
+

@@ -1,0 +1,18 @@
+[
+ {
+  "area": 0.0,
+  "area_uom": null,
+  "docstatus": 0,
+  "doctype": "Location",
+  "is_container": 0,
+  "is_group": 0,
+  "latitude": 0.0,
+  "location": null,
+  "location_name": "Zindiro",
+  "longitude": 0.0,
+  "modified": "2025-05-29 19:38:09.295471",
+  "name": "Zindiro",
+  "old_parent": "",
+  "parent_location": null
+ }
+]
