@@ -64,6 +64,10 @@ app_license = "mit"
 # 	"Role": "home_page"
 # }
 
+website_route_rules = [
+    {"from_route": "/listings/detail/<docname>", "to_route": "listings/detail"}
+]
+
 # Generators
 # ----------
 

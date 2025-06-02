@@ -1,6 +1,6 @@
 {# urugano/www/property/index.html #}
 
-{% extends "urugano/templates/web.html" %}
+{% extends "urugano/templates/pages/web.html" %}
 
 {% block page_content %}
 
@@ -8,7 +8,7 @@
 
 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
     {% for property in properties %}
-    <a href="/listings/{{ property.name }}" class="block mb-4 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer">
+    <a href="/listings/detail/{{ property.name }}" class="block mb-4 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer">
         <div class="rounded-lg overflow-hidden shadow p-4 bg-white">
             <div><img src="{{ property.image }}" alt="" class="w-full rounded-2xl h-40 object-cover mb-3"/></div>
             <div>
