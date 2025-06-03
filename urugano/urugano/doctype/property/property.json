@@ -13,6 +13,7 @@
   "image",
   "published",
   "furnished",
+  "featured",
   "section_break_qnoz",
   "landlord",
   "no_of_rooms",
@@ -127,6 +128,12 @@
    "fieldtype": "Data",
    "label": "Title",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "featured",
+   "fieldtype": "Check",
+   "label": "Featured"
   }
  ],
  "grid_page_length": 50,
@@ -134,7 +141,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2025-05-29 21:44:09.099438",
+ "modified": "2025-06-02 20:29:20.280822",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Property",
@@ -155,6 +162,7 @@
   }
  ],
  "route": "listings/[name].html",
+ "row_format": "Dynamic",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",
