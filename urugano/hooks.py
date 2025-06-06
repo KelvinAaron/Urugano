@@ -65,7 +65,7 @@ home_page = "home"
 # }
 
 website_route_rules = [
-    {"from_route": "/listings/detail/<docname>", "to_route": "listings/detail"}
+    {"from_route": "/listings/detail/<docname>", "to_route": "listings/detail"},
 ]
 
 # Generators
