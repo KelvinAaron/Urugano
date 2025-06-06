@@ -1,0 +1,100 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:RM-{YYYY}-{MM}-###",
+ "creation": "2025-06-03 18:35:59.212412",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "user",
+  "preferred_location",
+  "minimum_budget",
+  "move_in_date",
+  "column_break_wumd",
+  "gender",
+  "preferred_roommate",
+  "maximum_budget",
+  "section_break_djth",
+  "additional_notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
+  },
+  {
+   "fieldname": "preferred_location",
+   "fieldtype": "Data",
+   "label": "Preferred Location"
+  },
+  {
+   "fieldname": "minimum_budget",
+   "fieldtype": "Currency",
+   "label": "Minimum Budget"
+  },
+  {
+   "fieldname": "move_in_date",
+   "fieldtype": "Date",
+   "label": "Move in Date"
+  },
+  {
+   "fieldname": "column_break_wumd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "gender",
+   "fieldtype": "Select",
+   "label": "Gender",
+   "options": "Other\nMale\nFemale"
+  },
+  {
+   "fieldname": "preferred_roommate",
+   "fieldtype": "Select",
+   "label": "Preferred Roommate",
+   "options": "Same gender\nAny"
+  },
+  {
+   "fieldname": "maximum_budget",
+   "fieldtype": "Currency",
+   "label": "Maximum Budget"
+  },
+  {
+   "fieldname": "section_break_djth",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "additional_notes",
+   "fieldtype": "Small Text",
+   "label": "Additional Notes"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-06-03 18:48:56.793994",
+ "modified_by": "Administrator",
+ "module": "Urugano",
+ "name": "Roommate Profile",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
