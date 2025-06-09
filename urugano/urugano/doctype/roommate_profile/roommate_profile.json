@@ -1,29 +1,23 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:RM-{YYYY}-{MM}-###",
+ "autoname": "format:RM-{YYYY}-{MM}-{###}",
  "creation": "2025-06-03 18:35:59.212412",
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "user",
+  "name1",
   "preferred_location",
   "minimum_budget",
-  "move_in_date",
   "column_break_wumd",
   "gender",
   "preferred_roommate",
   "maximum_budget",
+  "move_in_date",
   "section_break_djth",
   "additional_notes"
  ],
  "fields": [
-  {
-   "fieldname": "user",
-   "fieldtype": "Link",
-   "label": "User",
-   "options": "User"
-  },
   {
    "fieldname": "preferred_location",
    "fieldtype": "Data",
@@ -31,7 +25,7 @@
   },
   {
    "fieldname": "minimum_budget",
-   "fieldtype": "Currency",
+   "fieldtype": "Int",
    "label": "Minimum Budget"
   },
   {
@@ -52,12 +46,12 @@
   {
    "fieldname": "preferred_roommate",
    "fieldtype": "Select",
-   "label": "Preferred Roommate",
+   "label": "Roommate Gender",
    "options": "Same gender\nAny"
   },
   {
    "fieldname": "maximum_budget",
-   "fieldtype": "Currency",
+   "fieldtype": "Int",
    "label": "Maximum Budget"
   },
   {
@@ -68,12 +62,17 @@
    "fieldname": "additional_notes",
    "fieldtype": "Small Text",
    "label": "Additional Notes"
+  },
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "label": "Name"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-03 18:48:56.793994",
+ "modified": "2025-06-07 17:44:11.352569",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Roommate Profile",

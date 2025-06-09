@@ -8,6 +8,30 @@ app_license = "mit"
 # Apps
 # ------------------
 
+# Automatically update python controller files with type annotations for this app.
+export_python_type_annotations = True
+
+fixtures = [
+    # export all records from the Category table
+    "Property", "Landlord", "Location", "Tenant", "Property Type", "Amenity", "Gallery", "Amenity Item"
+]
+
+# Home Pages
+# ----------
+
+# application home page (will override Website Settings)
+home_page = "home"
+
+# website user home page (by Role)
+# role_home_page = {
+# 	"Role": "home_page"
+# }
+
+website_route_rules = [
+    {"from_route": "/listings/detail/<docname>", "to_route": "listings/detail"},
+]
+
+
 # required_apps = []
 
 # Each item in the list will be shown as an app in the apps page
@@ -30,7 +54,7 @@ app_license = "mit"
 
 # include js, css files in header of web template
 # web_include_css = "/assets/urugano/css/urugano.css"
-# web_include_js = "/assets/urugano/js/urugano.js"
+web_include_js = "/assets/urugano/js/csrf_setup.js"
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "urugano/public/scss/website"
@@ -53,20 +77,7 @@ app_license = "mit"
 # include app icons in desk
 # app_include_icons = "urugano/public/icons.svg"
 
-# Home Pages
-# ----------
 
-# application home page (will override Website Settings)
-home_page = "home"
-
-# website user home page (by Role)
-# role_home_page = {
-# 	"Role": "home_page"
-# }
-
-website_route_rules = [
-    {"from_route": "/listings/detail/<docname>", "to_route": "listings/detail"},
-]
 
 # Generators
 # ----------
@@ -239,17 +250,13 @@ website_route_rules = [
 # 	"urugano.auth.validate"
 # ]
 
-# Automatically update python controller files with type annotations for this app.
-# export_python_type_annotations = True
+
 
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
 
-fixtures = [
-    # export all records from the Category table
-    "Property", "Landlord", "Location", "Tenant", "Property Type", "Amenity", "Gallery", "Amenity Item"
-]
+
 
 
 
