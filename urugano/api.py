@@ -2,8 +2,8 @@ import frappe
 from frappe.utils import getdate
 from frappe import _
 
-@frappe.whitelist()
-def search_properties(allow_guest=True):
+@frappe.whitelist(allow_guest=True)
+def search_properties():
     args = frappe.request.args
 
     filters = {}

@@ -5,18 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}My Custom Web Page{% endblock %}</title>
     <link rel="stylesheet" href="/assets/urugano/css/style.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
      <header class="bg-white shadow fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-xl font-bold text-blue-600">Urugano Realty</h1>
-            <nav class="space-x-4">
+            <nav class="space-x-4 hidden md:flex">
                 <a href="/listings" class="text-gray-700 hover:text-blue-600">Listings</a>
                 <a href="#roommates" class="text-gray-700 hover:text-blue-600">Roommates</a>
-                <a href="#student-housing" class="text-gray-700 hover:text-blue-600">Student Housing</a>
                 <a href="#login" class="text-gray-700 hover:text-blue-600">Login</a>
             </nav>
+
+            <div x-data="{ open: false }" class="relative cursor-pointer md:hidden">
+                <img @click="open = !open" x-bind:src="open? '/assets/urugano/img/circle-chevron-up (1).svg' : '/assets/urugano/img/circle-ellipsis (1).svg'" class="md:hidden" alt="">
+                <div x-show="open" x-transition x-cloak class="absolute right-0 mt-2 py-2 px-4 bg-white shadow rounded-md space-y-2">
+                    <a href="/listings" class="text-gray-700 hover:text-blue-600">Listings</a>
+                    <a href="#roommates" class="text-gray-700 hover:text-blue-600">Roommates</a>
+                    <a href="#login" class="text-gray-700 hover:text-blue-600">Login</a>
+                </div>
+            </div>
         </div>
     </header>
 
@@ -36,5 +48,8 @@
         </div>
     </footer>
 
+    {% block js_content %}
+        <!-- js content goes here -->
+    {% endblock %}
 </body>
 </html>

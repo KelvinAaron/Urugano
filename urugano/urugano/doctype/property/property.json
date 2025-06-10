@@ -16,6 +16,7 @@
   "section_break_qnoz",
   "landlord",
   "no_of_rooms",
+  "bathrooms",
   "column_break_dvli",
   "location",
   "price",
@@ -24,7 +25,8 @@
   "section_break_dcop",
   "description",
   "gallery_tab",
-  "gallery"
+  "gallery",
+  "column_break_vneb"
  ],
  "fields": [
   {
@@ -133,6 +135,11 @@
    "fieldname": "featured",
    "fieldtype": "Check",
    "label": "Featured"
+  },
+  {
+   "fieldname": "bathrooms",
+   "fieldtype": "Int",
+   "label": "Bathrooms"
   }
  ],
  "grid_page_length": 50,
@@ -140,7 +147,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2025-06-06 19:18:50.228580",
+ "modified": "2025-06-10 18:10:32.593406",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Property",
