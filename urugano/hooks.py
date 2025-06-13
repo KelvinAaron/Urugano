@@ -13,7 +13,7 @@ export_python_type_annotations = True
 
 fixtures = [
     # export all records from the Category table
-    "Property", "Landlord", "Location", "Tenant", "Property Type", "Amenity", "Gallery", "Amenity Item"
+    "Property", "Landlord", "Location", "Tenant", "Property Type", "Amenity", "Gallery", "Amenity Item", "Amenity Icon"
 ]
 
 # Home Pages

@@ -69,7 +69,17 @@
         <!-- Amenities -->
         <h1 class="text-lg font-bold my-4">Amenities</h1>
         <div class="flex flex-wrap flex-col max-h-40 gap-4 overflow-x-scroll no-scrollbar overflow-x-hidden">
+            {% for amenity in doc.amenities %}
             <div class="flex items-center gap-2">
+                {% if amenity.amenity in amenity_icons %}
+                {% set icon = amenity_icons[amenity.amenity] %}
+                <img src="{{ icon.icon }}" alt="{{ icon.name }}" />
+                {% endif %}
+                <p>{{ amenity.amenity }}</p>
+            </div>
+            {% endfor %}
+
+            <!-- <div class="flex items-center gap-2">
                 <img src="/assets/urugano/img/house-wifi.svg" alt="">
                 <p>Wifi</p>
             </div>
@@ -80,7 +90,7 @@
             <div class="flex items-center gap-2">
                 <img src="/assets/urugano/img/washing-machine.svg" alt="">
                 <p>Washing Machine</p>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

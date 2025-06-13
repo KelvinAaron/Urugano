@@ -5,7 +5,7 @@
 from frappe.model.document import Document
 
 
-class AmenityItem(Document):
+class AmenityIcon(Document):
 	# begin: auto-generated types
 	# This code is auto-generated. Do not modify anything in this block.
 
@@ -14,11 +14,7 @@ class AmenityItem(Document):
 	if TYPE_CHECKING:
 		from frappe.types import DF
 
-		amenity: DF.Link
-		icon: DF.Link | None
-		parent: DF.Data
-		parentfield: DF.Data
-		parenttype: DF.Data
-		quantity: DF.Int
+		amenity: DF.Link | None
+		icon: DF.AttachImage | None
 	# end: auto-generated types
 	pass
