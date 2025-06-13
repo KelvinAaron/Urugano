@@ -1,0 +1,18 @@
+[
+ {
+  "amenity": "Washing Machine",
+  "docstatus": 0,
+  "doctype": "Amenity Icon",
+  "icon": "/files/washing-machine.svg",
+  "modified": "2025-06-13 17:53:38.290534",
+  "name": "Washing Machine"
+ },
+ {
+  "amenity": "Microwave",
+  "docstatus": 0,
+  "doctype": "Amenity Icon",
+  "icon": "/files/microwave.svg",
+  "modified": "2025-06-13 17:54:16.244268",
+  "name": "Microwave"
+ }
+]

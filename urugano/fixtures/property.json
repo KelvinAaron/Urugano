@@ -2,16 +2,79 @@
  {
   "amenities": [
    {
+    "amenity": "Fridge",
+    "icon": "Microwave",
+    "parent": "PR-Apartment-0004",
+    "parentfield": "amenities",
+    "parenttype": "Property",
+    "quantity": 1
+   },
+   {
     "amenity": "Microwave",
+    "icon": "Microwave",
+    "parent": "PR-Apartment-0004",
+    "parentfield": "amenities",
+    "parenttype": "Property",
+    "quantity": 1
+   }
+  ],
+  "bathrooms": 0,
+  "description": "Experience modern urban living in this beautiful downtown apartment, perfectly located in the heart of the city. This stylish and spacious unit features an open-concept layout, large windows that flood the space with natural light, and sleek finishes throughout. Enjoy a fully equipped kitchen with stainless steel appliances, a cozy living area ideal for relaxing or entertaining, and a private balcony with city views. The apartment also includes in-unit laundry, ample closet space, and smart home features for your convenience. Just steps away from cafes, restaurants, shopping, and public transit, this apartment offers unmatched walkability and access to everything downtown has to offer. Whether you're a young professional or someone seeking vibrant city living, this apartment combines comfort, convenience, and charm.\n\n",
+  "docstatus": 0,
+  "doctype": "Property",
+  "featured": 1,
+  "furnished": 0,
+  "gallery": [
+   {
+    "image": "/files/aer.png",
+    "label": "Exterior",
+    "parent": "PR-Apartment-0004",
+    "parentfield": "gallery",
+    "parenttype": "Property"
+   },
+   {
+    "image": "/files/colafrica.jpg",
+    "label": "Exterior",
+    "parent": "PR-Apartment-0004",
+    "parentfield": "gallery",
+    "parenttype": "Property"
+   }
+  ],
+  "image": "/files/aer.png",
+  "landlord": "LL-0001",
+  "location": "Zindiro",
+  "modified": "2025-06-13 18:30:24.883339",
+  "name": "PR-Apartment-0004",
+  "no_of_rooms": 4,
+  "price": 200000.0,
+  "property_type": "Apartment",
+  "published": 1,
+  "title": "Valley View"
+ },
+ {
+  "amenities": [
+   {
+    "amenity": "Microwave",
+    "icon": "Microwave",
+    "parent": "PR-Apartment-0005",
+    "parentfield": "amenities",
+    "parenttype": "Property",
+    "quantity": 1
+   },
+   {
+    "amenity": "Washing Machine",
+    "icon": "Washing Machine",
     "parent": "PR-Apartment-0005",
     "parentfield": "amenities",
     "parenttype": "Property",
     "quantity": 1
    }
   ],
+  "bathrooms": 0,
   "description": null,
   "docstatus": 0,
   "doctype": "Property",
+  "featured": 1,
   "furnished": 1,
   "gallery": [
    {
@@ -22,8 +85,8 @@
     "parenttype": "Property"
    },
    {
-    "image": "/files/White and Green Simple  Professional Business Project Presentation (2).jpg",
-    "label": "Something",
+    "image": "/files/colafrica.jpg",
+    "label": "Interior",
     "parent": "PR-Apartment-0005",
     "parentfield": "gallery",
     "parenttype": "Property"
@@ -32,46 +95,12 @@
   "image": "/files/colafrica.jpg",
   "landlord": "LL-0002",
   "location": "Zindiro",
-  "modified": "2025-05-29 21:14:48.030605",
+  "modified": "2025-06-13 17:57:53.304258",
   "name": "PR-Apartment-0005",
   "no_of_rooms": 1,
   "price": 250000.0,
   "property_type": "Apartment",
   "published": 1,
   "title": "Tech Standing"
- },
- {
-  "amenities": [
-   {
-    "amenity": "Fridge",
-    "parent": "PR-Apartment-0004",
-    "parentfield": "amenities",
-    "parenttype": "Property",
-    "quantity": 1
-   }
-  ],
-  "description": null,
-  "docstatus": 0,
-  "doctype": "Property",
-  "furnished": 1,
-  "gallery": [
-   {
-    "image": "/files/aer.png",
-    "label": "Exterior",
-    "parent": "PR-Apartment-0004",
-    "parentfield": "gallery",
-    "parenttype": "Property"
-   }
-  ],
-  "image": "/files/aer.png",
-  "landlord": "LL-0001",
-  "location": "Zindiro",
-  "modified": "2025-05-29 21:14:40.675829",
-  "name": "PR-Apartment-0004",
-  "no_of_rooms": 4,
-  "price": 200000.0,
-  "property_type": "Apartment",
-  "published": 1,
-  "title": "Valley View"
  }
 ]

@@ -1,5 +1,19 @@
 [
  {
+  "amenity_name": "Wifi",
+  "docstatus": 0,
+  "doctype": "Amenity",
+  "modified": "2025-06-13 17:52:00.943887",
+  "name": "Wifi"
+ },
+ {
+  "amenity_name": "Washing Machine",
+  "docstatus": 0,
+  "doctype": "Amenity",
+  "modified": "2025-06-13 17:53:25.641318",
+  "name": "Washing Machine"
+ },
+ {
   "amenity_name": "Fridge",
   "docstatus": 0,
   "doctype": "Amenity",
