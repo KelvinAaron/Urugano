@@ -17,4 +17,11 @@ def get_context(context):
             icon = frappe.get_doc("Amenity Icon", amenity.icon)
             amenity_icons[amenity.amenity] = icon  
     context.amenity_icons = amenity_icons
+
+    context.properties = frappe.get_all(
+        "Property",
+        fields=['*'],
+        order_by="creation desc"
+    )
+
     return context
