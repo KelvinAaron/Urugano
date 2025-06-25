@@ -1,0 +1,35 @@
+{# urugano/www/property/index.html #}
+
+{% extends "urugano/templates/pages/web.html" %}
+
+{% block page_content %}
+
+<div class="overflow-x-auto">
+  <table class="w-full border border-gray-300 text-left">
+    <thead class="bg-gray-100">
+      <tr>
+        <th class="border border-gray-300 px-4 py-2">Name</th>
+        <th class="border border-gray-300 px-4 py-2">Gender</th>
+        <th class="border border-gray-300 px-4 py-2">Preferred Gender</th>
+        <th class="border border-gray-300 px-4 py-2">Preferred Location</th>
+        <th class="border border-gray-300 px-4 py-2">Maximum Budget</th>
+        <th class="border border-gray-300 px-4 py-2">Move in Date</th>
+      </tr>
+    </thead>
+    {% for roommate in roommates %}
+    <tbody>
+      <tr>
+        <td class="border border-gray-300 px-4 py-2">{{ roommate.name1 }}</td>
+        <td class="border border-gray-300 px-4 py-2">{{roommate.gender}}</td>
+        <td class="border border-gray-300 px-4 py-2">{{roommate.preferred_roommate}}</td>
+        <td class="border border-gray-300 px-4 py-2">{{roommate.preferred_location}}</td>
+        <td class="border border-gray-300 px-4 py-2">{{roommate.maximum_budget}}</td>
+        <td class="border border-gray-300 px-4 py-2">{{roommate.move_in_date}}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+</div>
+
+
+{% endblock %}
