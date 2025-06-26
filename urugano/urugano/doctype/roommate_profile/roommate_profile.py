@@ -16,11 +16,12 @@ class RoommateProfile(Document):
 
 		additional_notes: DF.SmallText | None
 		gender: DF.Literal["Other", "Male", "Female"]
-		maximum_budget: DF.Int
-		minimum_budget: DF.Int
+		maximum_budget: DF.Currency
+		minimum_budget: DF.Currency
 		move_in_date: DF.Date | None
 		name1: DF.Data | None
 		preferred_location: DF.Data | None
 		preferred_roommate: DF.Literal["Same gender", "Any"]
+		user: DF.Link | None
 	# end: auto-generated types
 	pass

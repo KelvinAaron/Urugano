@@ -6,6 +6,7 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "user",
   "name1",
   "preferred_location",
   "minimum_budget",
@@ -25,7 +26,7 @@
   },
   {
    "fieldname": "minimum_budget",
-   "fieldtype": "Int",
+   "fieldtype": "Currency",
    "label": "Minimum Budget"
   },
   {
@@ -46,12 +47,12 @@
   {
    "fieldname": "preferred_roommate",
    "fieldtype": "Select",
-   "label": "Roommate Gender",
+   "label": "Preferred Roommate",
    "options": "Same gender\nAny"
   },
   {
    "fieldname": "maximum_budget",
-   "fieldtype": "Int",
+   "fieldtype": "Currency",
    "label": "Maximum Budget"
   },
   {
@@ -67,12 +68,18 @@
    "fieldname": "name1",
    "fieldtype": "Data",
    "label": "Name"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "label": "User",
+   "options": "User"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-07 17:44:11.352569",
+ "modified": "2025-06-24 13:11:26.139845",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Roommate Profile",
@@ -92,7 +99,6 @@
    "write": 1
   }
  ],
- "row_format": "Dynamic",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
