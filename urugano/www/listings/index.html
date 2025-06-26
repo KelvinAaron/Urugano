@@ -4,10 +4,10 @@
 
 {% block page_content %}
 
-<div class="max-w-6xl mx-auto px-4">
+<div class="container-6xl">
     <h3 class="text-2xl font-semibold mb-4">Search Listings</h3>
     <form class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <input name="location" type="tfrafrappe-bench/apps/crop_management/crop_managementppe-benchext" placeholder="Location" class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
+        <input name="location" type="text" placeholder="Location" class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
         <select name="property_type" class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
             <option>Property Type</option>
             <option>Apartment</option>
@@ -21,27 +21,35 @@
             <option>No</option>
         </select>
         <input name="number_of_rooms" type="number" placeholder="Number of Rooms" class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
-        <button type="submit" id="search-button" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Search</button>
+        <button type="submit" id="search-button" class="btn">Search</button>
     </form>
 </div>
 
-<h1 class="text-3xl font-bold" style="margin-top: 64px; margin-bottom: 32px">Available Properties</h1>
-
-<div id="property-listings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    {% for property in properties %}
-    <a href="/listings/detail/{{ property.name }}" class="block mb-4 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer">
-        <div class="rounded-lg overflow-hidden shadow p-4 bg-white">
-            <div><img src="{{ property.image }}" alt="" class="w-full rounded-2xl h-40 object-cover mb-3"/></div>
-            <div>
-                <h2 class="text-lg font-semibold mb-1">{{ property.title }}</h2>
-                <p class="text-sm text-gray-600 mb-1 font-light">{{ property.location }}</p>
-                <p class="text-sm text-gray-600 mb-1 font-bold">RWF {{ property.price }}</p>
+<div class="container-6xl">
+    <h1 class="text-3xl font-bold" style="margin-top: 64px; margin-bottom: 32px">Available Properties</h1>
+    
+    <div id="property-listings" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for property in properties %}
+        <a href="/listings/detail/{{ property.name }}" class="block mb-4 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer">
+            <div class="rounded-lg overflow-hidden shadow p-4 bg-white">
+                <div><img src="{{ property.image }}" alt="" class="w-full rounded-2xl h-40 object-cover mb-3"/></div>
+                <div>
+                    <h2 class="text-lg font-semibold mb-1">{{ property.title }}</h2>
+                    <p class="text-sm text-gray-600 mb-1 font-light">{{ property.location }}</p>
+                    <p class="text-sm text-gray-600 mb-1 font-bold">RWF {{ property.price }}</p>
+                </div>
             </div>
-        </div>
-    </a>
-    {% endfor %}
+        </a>
+        {% endfor %}
+    </div>
 </div>
 
+
+{% endblock %}
+
+
+
+{% block js_content %}        
 <script defer>
     document.getElementById('search-button').addEventListener('click', async function (e) {
         e.preventDefault();
@@ -82,5 +90,6 @@
         });
     });
 </script>
-
 {% endblock %}
+
+

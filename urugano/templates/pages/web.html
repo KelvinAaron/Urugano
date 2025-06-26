@@ -14,19 +14,23 @@
 
      <header class="bg-white shadow fixed w-full z-50">
         <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <a href="/home"><h1 class="text-xl font-bold text-blue-600">Urugano Realty</h1></a>
-            <nav class="space-x-4 hidden md:flex">
+            <h1 class="text-xl font-bold text-blue-600">Urugano Realty</h1>
+            <nav class="space-x-4 hidden md:flex items-center">
                 <a href="/listings" class="text-gray-700 hover:text-blue-600">Listings</a>
-                <a href="/roommates" class="text-gray-700 hover:text-blue-600">Roommates</a>
-                <a href="#login" class="text-gray-700 hover:text-blue-600">Login</a>
+                <a href="/roommate" class="text-gray-700 hover:text-blue-600">Roommates</a>
+                <a href="#login" class="p-[0.5px] hover:bg-gray-300 rounded-full">
+                    <img src="/assets/urugano/img/circle-user-round.svg" alt="">
+                </a>
             </nav>
 
             <div x-data="{ open: false }" class="relative cursor-pointer md:hidden">
                 <img @click="open = !open" x-bind:src="open? '/assets/urugano/img/circle-chevron-up (1).svg' : '/assets/urugano/img/circle-ellipsis (1).svg'" class="md:hidden" alt="">
                 <div x-show="open" x-transition x-cloak class="absolute right-0 mt-2 py-2 px-4 bg-white shadow rounded-md space-y-2">
                     <a href="/listings" class="text-gray-700 hover:text-blue-600">Listings</a>
-                    <a href="/roommates" class="text-gray-700 hover:text-blue-600">Roommates</a>
-                    <a href="#login" class="text-gray-700 hover:text-blue-600">Login</a>
+                    <a href="/roommate" class="text-gray-700 hover:text-blue-600">Roommates</a>
+                    <a href="#login" class="text-gray-700 hover:text-blue-600">
+                        <img src="/assets/urugano/img/circle-user-round.svg" alt="">
+                    </a>
                 </div>
             </div>
         </div>
@@ -35,7 +39,7 @@
     <!-- Spacer for fixed header -->
     <div class="h-20"></div>
 
-    <main class="container max-w-7xl mt-4 mx-auto px-4 py-4 flex-grow">
+    <main class="flex-grow">
         {% block page_content %}
         <!-- Page content goes here -->
         {% endblock %}

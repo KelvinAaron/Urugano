@@ -12,4 +12,15 @@
             transform: "translateX(-100%)";    
         }  
     }  
+
+}
+
+@layer components {
+  .container-6xl {
+    @apply max-w-6xl mx-auto px-4
+  }
+
+  .btn {
+    @apply bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-900 transition-colors duration-300;
+  }
 }
