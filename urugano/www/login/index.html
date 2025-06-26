@@ -38,11 +38,11 @@
         if (!response.ok) throw new Error("Invalid credentials");
 
         const data = await response.json();
-        // console.log("Logged in:", data);
+        console.log("Logged in:", data);
         alert(`Welcome, ${data.full_name}`);
 
         // You can now call authenticated routes like get_logged_user
-        fetch(`${baseURL}/api/method/urugano.api.get_logged_user`)
+        fetch(`/api/method/urugano.api.get_logged_user`)
         .then(response => response.json())
         .then(data => {
             console.log("Logged in:", data);
