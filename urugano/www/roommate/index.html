@@ -1,0 +1,71 @@
+{# urugano/www/property/index.html #} 
+
+{% extends "urugano/templates/pages/web.html" %} 
+
+{% block page_content %}
+<section class="container-6xl">
+    <h1 class="text-2xl font-semibold mb-4">Find Your Perfect Roommate</h1>
+  <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+    <!-- Location -->
+    <div>
+      <select class="w-full border px-3 py-2 rounded-md">
+        <option>Location</option>
+        <option>Any</option>
+        <option>Kigali</option>
+        <option>Nyarutarama</option>
+        <option>Kicukiro</option>
+      </select>
+    </div>
+
+    <!-- Min Budget -->
+    <div>
+      <input
+        type="number"
+        min="0"
+        placeholder="Min Budget"
+        class="w-full border px-3 py-2 rounded-md"
+      />
+    </div>
+
+    <!-- Max Budget -->
+    <div>
+      <input
+        type="number"
+        min="0"
+        placeholder="Max Budget"
+        class="w-full border px-3 py-2 rounded-md"
+      />
+    </div>
+
+    <!-- Move-in Date -->
+    <div>
+      <input type="date" placeholder="Move-in Date" class="w-full border px-3 py-2 rounded-md" />
+    </div>
+
+    <!-- Gender -->
+    <div class="flex gap-3 justify-around items-center">
+        <label
+            ><input type="radio" name="gender" value="any" checked /> Any</label
+        >
+        <label
+            ><input type="radio" name="gender" value="female" /> Female</label
+        >
+        <label><input type="radio" name="gender" value="male" /> Male</label>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="md:col-span-2 lg:col-span-1">
+      <button
+        type="submit"
+        class="w-full btn"
+      >
+        Apply Filters
+      </button>
+    </div>
+  </form>
+</section>
+{% endblock %} 
+
+{% block js_content %} 
+
+{% endblock %}
