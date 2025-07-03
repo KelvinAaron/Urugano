@@ -9,7 +9,7 @@
             <form id="loginForm" class="flex flex-col gap-4">
                 <input id="username" name="email" type="text" placeholder="Username" class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
                 <input id="password" name="password" type="password" placeholder="Password" class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
-                <button type="submit" id="search-button" class="btn">Login</button>
+                <button type="submit" id="login-button" class="btn">Login</button>
             </form>
         </div>
     </section>
@@ -24,6 +24,10 @@
 
     const usr = document.getElementById("username").value;
     const pwd = document.getElementById("password").value;
+    const btn = document.getElementById("login-button");
+
+    btn.disabled = true;
+    btn.textContent = "Logging in...";
 
     try {
         const response = await fetch(`/api/method/login`, {
@@ -56,6 +60,10 @@
     } catch (err) {
         console.error(err);
         alert("Login failed");
+        
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "Login";
     }
     });
 </script>

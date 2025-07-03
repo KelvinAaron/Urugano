@@ -1,35 +1,126 @@
-{# urugano/www/property/index.html #}
+{# urugano/www/property/index.html #} 
 
-{% extends "urugano/templates/pages/web.html" %}
+{% extends "urugano/templates/pages/web.html" %} 
 
 {% block page_content %}
+<section class="container-6xl mb-8">
+    <h1 class="text-2xl font-semibold mb-4">Find Your Perfect Roommate</h1>
+  <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+    <!-- Location -->
+    <div>
+      <select class="w-full border px-3 py-2 rounded-md">
+        <option>Location</option>
+        <option>Any</option>
+        <option>Kigali</option>
+        <option>Nyarutarama</option>
+        <option>Kicukiro</option>
+      </select>
+    </div>
 
-<div class="overflow-x-auto">
-  <table class="w-full border border-gray-300 text-left">
-    <thead class="bg-gray-100">
-      <tr>
-        <th class="border border-gray-300 px-4 py-2">Name</th>
-        <th class="border border-gray-300 px-4 py-2">Gender</th>
-        <th class="border border-gray-300 px-4 py-2">Preferred Gender</th>
-        <th class="border border-gray-300 px-4 py-2">Preferred Location</th>
-        <th class="border border-gray-300 px-4 py-2">Maximum Budget</th>
-        <th class="border border-gray-300 px-4 py-2">Move in Date</th>
-      </tr>
-    </thead>
+    <!-- Min Budget -->
+    <div>
+      <input
+        type="number"
+        min="0"
+        placeholder="Min Budget"
+        class="w-full border px-3 py-2 rounded-md"
+      />
+    </div>
+
+    <!-- Max Budget -->
+    <div>
+      <input
+        type="number"
+        min="0"
+        placeholder="Max Budget"
+        class="w-full border px-3 py-2 rounded-md"
+      />
+    </div>
+
+    <!-- Move-in Date -->
+    <div>
+      <input type="date" placeholder="Move-in Date" class="w-full border px-3 py-2 rounded-md" />
+    </div>
+
+    <!-- Gender -->
+    <div class="flex gap-3 justify-around items-center">
+        <label
+            ><input type="radio" name="gender" value="any" checked /> Any</label
+        >
+        <label
+            ><input type="radio" name="gender" value="female" /> Female</label
+        >
+        <label><input type="radio" name="gender" value="male" /> Male</label>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="md:col-span-2 lg:col-span-1">
+      <button
+        type="submit"
+        class="w-full btn"
+      >
+        Apply Filters
+      </button>
+    </div>
+  </form>
+</section>
+
+<section class="container-6xl">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     {% for roommate in roommates %}
-    <tbody>
-      <tr>
-        <td class="border border-gray-300 px-4 py-2">{{ roommate.name1 }}</td>
-        <td class="border border-gray-300 px-4 py-2">{{roommate.gender}}</td>
-        <td class="border border-gray-300 px-4 py-2">{{roommate.preferred_roommate}}</td>
-        <td class="border border-gray-300 px-4 py-2">{{roommate.preferred_location}}</td>
-        <td class="border border-gray-300 px-4 py-2">{{roommate.maximum_budget}}</td>
-        <td class="border border-gray-300 px-4 py-2">{{roommate.move_in_date}}</td>
-      </tr>
-    </tbody>
+    <div class="max-w-md bg-white/50 shadow-xl p-10 rounded-lg relative overflow-hidden mx-4 transform-gpu"> 
+      <!-- Decorative background layers -->
+      <div class="absolute top-[-20%] right-[-20%] w-60 h-60 bg-blue-500/70 rounded-full shadow-[2rem_6rem_0_-3rem_#fff] -z-10"></div>
+      <!-- <div class="absolute top-[-0.7rem] left-[-0.7rem] w-full h-full bg border border-white bg-black/5  -z-10"></div> -->
+      <div class="flex flex-col items-center">
+        <div class="mt-6">
+          <div class="mb-4 mt-12">
+            <h2 class="text-xl font-semibold">{{ roommate.name1 }}</h2>
+            <h4 class="text-sm text-gray-800">{{ roommate.gender }}, Age</h4>
+          </div>
+          <!-- <p class="text-sm mb-4">
+            I'm a Front End Developer, follow me to be the first who see my new work.
+          </p> -->
+          <div class="flex flex-col gap-4 mb-4">
+            <div class="flex justify-center gap-6">
+              <div class="flex flex-col items-center">
+                <h3 class="text-base font-semibold">{{ roommate.preferred_roommate }}</h3>
+                <h4 class="text-xs text-center">Preferred Gender</h4>
+              </div>
+              <div class="flex flex-col items-center">
+                <h3 class="text-base font-semibold">{{ roommate.preferred_location }}</h3>
+                <h4 class="text-xs text-center">Preferred location</h4>
+              </div>
+            </div>
+    
+            <div class="flex justify-center gap-6">
+              <div class="flex flex-col items-center">
+                <h3 class="text-base font-semibold">{{ roommate.minimum_budget}} RWF</h3>
+                <h4 class="text-xs text-center">Min Budget</h4>
+              </div>
+              <div class="flex flex-col items-center">
+                <h3 class="text-base font-semibold">{{ roommate.maximum_budget}} RWF</h3>
+                <h4 class="text-xs text-center">Max Budget</h4>
+              </div>
+            </div>
+          </div>
+          <div class="flex space-x-4 justify-center mt-12">
+            <button class="min-w-[120px] px-4 py-2 border border-blue-600 font-bold rounded transition hover:bg-blue-600/60 bg-blue-600 text-white">
+              Contact
+            </button>
+            <!-- <button class="min-w-[120px] px-4 py-0.5 border border-blue-600 font-bold rounded transition bg-transparent text-blue-600 hover:bg-blue-600/60 hover:text-white">
+              View profile
+            </button> -->
+          </div>
+        </div>
+      </div>
+    </div>
     {% endfor %}
-  </table>
-</div>
+  </div>
 
+</section>
+{% endblock %} 
+
+{% block js_content %} 
 
 {% endblock %}
