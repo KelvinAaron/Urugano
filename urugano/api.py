@@ -30,6 +30,7 @@ def apply_roommate():
         roommate.name1 = data.get("name")
         roommate.gender = data.get("gender")
         roommate.preferred_location = data.get("location")
+        roommate.age = data.get("age")
         roommate.preferred_roommate = data.get("roommate")
         roommate.minimum_budget = float(data.get("min_budget") or 0)
         roommate.maximum_budget = float(data.get("max_budget") or 0)

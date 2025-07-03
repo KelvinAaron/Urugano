@@ -15,6 +15,7 @@ class RoommateProfile(Document):
 		from frappe.types import DF
 
 		additional_notes: DF.SmallText | None
+		age: DF.Int
 		gender: DF.Literal["Other", "Male", "Female"]
 		maximum_budget: DF.Currency
 		minimum_budget: DF.Currency

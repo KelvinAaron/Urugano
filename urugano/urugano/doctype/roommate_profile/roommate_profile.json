@@ -10,6 +10,7 @@
   "name1",
   "preferred_location",
   "minimum_budget",
+  "age",
   "column_break_wumd",
   "gender",
   "preferred_roommate",
@@ -74,12 +75,17 @@
    "fieldtype": "Link",
    "label": "User",
    "options": "User"
+  },
+  {
+   "fieldname": "age",
+   "fieldtype": "Int",
+   "label": "Age"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-06-24 13:11:26.139845",
+ "modified": "2025-07-03 11:37:25.996742",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Roommate Profile",
