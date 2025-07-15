@@ -27,8 +27,9 @@
    "non_negative": 1
   },
   {
+   "fetch_from": "amenity.icon",
    "fieldname": "icon",
-   "fieldtype": "Link",
+   "fieldtype": "Attach Image",
    "label": "Icon",
    "options": "Amenity Icon"
   }
@@ -37,7 +38,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-06-13 17:57:21.221156",
+ "modified": "2025-07-08 14:17:21.062211",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Amenity Item",

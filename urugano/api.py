@@ -3,7 +3,7 @@ from frappe.utils import getdate
 from frappe import _
 
 @frappe.whitelist(allow_guest=True)
-def search_properties():
+def search_property_listings():
     args = frappe.request.args
 
     filters = {}
@@ -45,3 +45,22 @@ def apply_roommate():
         frappe.throw(_("An error occurred: ") + str(e))
 
 #    Object { name: "John Doe", gender: "male", location: "Zindiro", roommate: "Same gender", min_budget: "150000", max_budget: "200000", move_in_date: "2025-06-30", notes: "Hmm" }
+
+@frappe.whitelist(allow_guest=True)
+def search_roommate_listings():
+    args = frappe.request.args
+
+    filters = {}
+    if args.get("gender"):
+        filters["gender"] = args.get("gender")
+    if args.get("location"):
+        filters["preferred_location"] = args.get("location")
+    if args.get("min_budget"):
+        filters["minimum_budget"] = [">=", args.get("min_budget")]
+    if args.get("move_in"):
+        filters["move_in_date"] = [">=", args.get("move_in")]
+    if args.get("max_budget"):
+        filters["maximum_budget"] = ["<=", args.get("max_budget")]
+
+    results = frappe.get_all("Roommate Profile", filters=filters, fields=["*"])
+    return results

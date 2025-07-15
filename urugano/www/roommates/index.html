@@ -1,64 +1,47 @@
-{# urugano/www/property/index.html #} 
+{# urugano/www/property/index.html #}
 
-{% extends "urugano/templates/pages/web.html" %} 
+{% extends "urugano/templates/pages/web.html" %}
 
 {% block page_content %}
 <section class="container-6xl mb-8">
-    <h1 class="text-2xl font-semibold mb-4">Find Your Perfect Roommate</h1>
+  <h1 class="text-2xl font-semibold mb-4">Find Your Perfect Roommate</h1>
   <form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
     <!-- Location -->
     <div>
-      <select class="w-full border px-3 py-2 rounded-md">
-        <option>Location</option>
-        <option>Any</option>
-        <option>Kigali</option>
-        <option>Nyarutarama</option>
-        <option>Kicukiro</option>
-      </select>
+      <input name="location" type="text" placeholder="Location" class="w-full border px-3 py-2 rounded-md">
+
     </div>
 
     <!-- Min Budget -->
     <div>
-      <input
-        type="number"
-        min="0"
-        placeholder="Min Budget"
-        class="w-full border px-3 py-2 rounded-md"
-      />
+      <input name="min_budget" type="number" min="0" placeholder="Min Budget"
+        class="w-full border px-3 py-2 rounded-md" />
     </div>
 
     <!-- Max Budget -->
     <div>
-      <input
-        type="number"
-        min="0"
-        placeholder="Max Budget"
-        class="w-full border px-3 py-2 rounded-md"
-      />
+      <input name="max_budget" type="number" min="0" placeholder="Max Budget"
+        class="w-full border px-3 py-2 rounded-md" />
     </div>
 
     <!-- Move-in Date -->
     <div>
-      <input type="date" placeholder="Move-in Date" class="w-full border px-3 py-2 rounded-md" />
+      <input name="move_in" type="date" placeholder="Move-in Date" class="w-full border px-3 py-2 rounded-md" />
     </div>
 
     <!-- Gender -->
-    <div class="flex gap-3 justify-around items-center">
-        <label
-            ><input type="radio" name="gender" value="any" checked /> Any</label
-        >
-        <label
-            ><input type="radio" name="gender" value="female" /> Female</label
-        >
-        <label><input type="radio" name="gender" value="male" /> Male</label>
+    <div>
+      <select name="gender" class="w-full border px-3 py-2 rounded-md">
+        <option value="" disabled selected>Select Gender</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
     </div>
 
     <!-- Submit Button -->
     <div class="md:col-span-2 lg:col-span-1">
-      <button
-        type="submit"
-        class="w-full btn"
-      >
+      <button id="search-button" type="submit" class="w-full btn">
         Apply Filters
       </button>
     </div>
@@ -66,11 +49,13 @@
 </section>
 
 <section class="container-6xl">
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div id="property-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
     {% for roommate in roommates %}
-    <div class="max-w-md bg-white/50 shadow-xl p-10 rounded-lg relative overflow-hidden mx-4 transform-gpu"> 
+    <div class="max-w-md bg-white/50 shadow-xl p-10 rounded-lg relative overflow-hidden mx-4 transform-gpu">
       <!-- Decorative background layers -->
-      <div class="absolute top-[-20%] right-[-20%] w-60 h-60 bg-blue-500/70 rounded-full shadow-[2rem_6rem_0_-3rem_#fff] -z-10"></div>
+      <div
+        class="absolute top-[-20%] right-[-20%] w-60 h-60 bg-blue-500/70 rounded-full shadow-[2rem_6rem_0_-3rem_#fff] -z-10">
+      </div>
       <!-- <div class="absolute top-[-0.7rem] left-[-0.7rem] w-full h-full bg border border-white bg-black/5  -z-10"></div> -->
       <div class="flex flex-col items-center">
         <div class="mt-6">
@@ -92,20 +77,23 @@
                 <h4 class="text-xs text-center">Preferred location</h4>
               </div>
             </div>
-    
+
             <div class="flex justify-center gap-6">
               <div class="flex flex-col items-center">
-                <h3 class="text-base font-semibold">{{ roommate.minimum_budget}} RWF</h3>
+                <h3 class="text-base font-semibold">{{
+                frappe.format_value(roommate.minimum_budget, {'fieldtype': 'Currency', 'options': 'RWF'}) }}</h3>
                 <h4 class="text-xs text-center">Min Budget</h4>
               </div>
               <div class="flex flex-col items-center">
-                <h3 class="text-base font-semibold">{{ roommate.maximum_budget}} RWF</h3>
+                <h3 class="text-base font-semibold">{{
+                frappe.format_value(roommate.maximum_budget, {'fieldtype': 'Currency', 'options': 'RWF'}) }}</h3>
                 <h4 class="text-xs text-center">Max Budget</h4>
               </div>
             </div>
           </div>
           <div class="flex space-x-4 justify-center mt-12">
-            <button class="min-w-[120px] px-4 py-2 border border-blue-600 font-bold rounded transition hover:bg-blue-600/60 bg-blue-600 text-white">
+            <button
+              class="min-w-[120px] px-4 py-2 border border-blue-600 font-bold rounded transition hover:bg-blue-600/60 bg-blue-600 text-white">
               Contact
             </button>
             <!-- <button class="min-w-[120px] px-4 py-0.5 border border-blue-600 font-bold rounded transition bg-transparent text-blue-600 hover:bg-blue-600/60 hover:text-white">
@@ -119,8 +107,87 @@
   </div>
 
 </section>
-{% endblock %} 
+{% endblock %}
 
-{% block js_content %} 
+{% block js_content %}
+<script defer>
+  document.getElementById('search-button').addEventListener('click', async function (e) {
+    e.preventDefault();
 
+    const location = document.querySelector('input[name="location"]').value;
+    const minbudget = document.querySelector('input[name="min_budget"]').value;
+    const maxbudget = document.querySelector('input[name="max_budget"]').value;
+    const movein = document.querySelector('input[name="move_in"]').value;
+    const gender = document.querySelector('select[name="gender"]').value;
+
+    const params = new URLSearchParams({
+      location,
+      min_budget: minbudget,
+      max_budget: maxbudget,
+      move_in: movein,
+      gender
+    });
+
+    const response = await fetch(`/api/method/urugano.api.search_roommate_listings?${params.toString()}`);
+    const data = await response.json();
+
+    const listingsContainer = document.getElementById('property-listings');
+    listingsContainer.innerHTML = '';
+
+    data.message.forEach(roommate => {
+      listingsContainer.innerHTML += `
+        <div class="max-w-md bg-white/50 shadow-xl p-10 rounded-lg relative overflow-hidden mx-4 transform-gpu">
+      <!-- Decorative background layers -->
+          <div
+            class="absolute top-[-20%] right-[-20%] w-60 h-60 bg-blue-500/70 rounded-full shadow-[2rem_6rem_0_-3rem_#fff] -z-10">
+          </div>
+          <!-- <div class="absolute top-[-0.7rem] left-[-0.7rem] w-full h-full bg border border-white bg-black/5  -z-10"></div> -->
+          <div class="flex flex-col items-center">
+            <div class="mt-6">
+              <div class="mb-4 mt-12">
+                <h2 class="text-xl font-semibold">${roommate.name1}</h2>
+                <h4 class="text-sm text-gray-800">${roommate.gender}, ${roommate.age} years</h4>
+              </div>
+              <!-- <p class="text-sm mb-4">
+                I'm a Front End Developer, follow me to be the first who see my new work.
+              </p> -->
+              <div class="flex flex-col gap-4 mb-4">
+                <div class="flex justify-center gap-6">
+                  <div class="flex flex-col items-center">
+                    <h3 class="text-base font-semibold">${roommate.preferred_roommate}</h3>
+                    <h4 class="text-xs text-center">Preferred Gender</h4>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <h3 class="text-base font-semibold">${roommate.preferred_location}</h3>
+                    <h4 class="text-xs text-center">Preferred location</h4>
+                  </div>
+                </div>
+
+                <div class="flex justify-center gap-6">
+                  <div class="flex flex-col items-center">
+                    <h3 class="text-base font-semibold">${roommate.minimum_budget} RWF</h3>
+                    <h4 class="text-xs text-center">Min Budget</h4>
+                  </div>
+                  <div class="flex flex-col items-center">
+                    <h3 class="text-base font-semibold">${roommate.maximum_budget} RWF</h3>
+                    <h4 class="text-xs text-center">Max Budget</h4>
+                  </div>
+                </div>
+              </div>
+              <div class="flex space-x-4 justify-center mt-12">
+                <button
+                  class="min-w-[120px] px-4 py-2 border border-blue-600 font-bold rounded transition hover:bg-blue-600/60 bg-blue-600 text-white">
+                  Contact
+                </button>
+                <!-- <button class="min-w-[120px] px-4 py-0.5 border border-blue-600 font-bold rounded transition bg-transparent text-blue-600 hover:bg-blue-600/60 hover:text-white">
+                  View profile
+                </button> -->
+              </div>
+            </div>
+          </div>
+        </div>
+            `;
+    });
+  });
+</script>
 {% endblock %}

@@ -5,7 +5,8 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
-  "amenity_name"
+  "amenity_name",
+  "icon"
  ],
  "fields": [
   {
@@ -13,12 +14,17 @@
    "fieldtype": "Data",
    "label": "Amenity Name",
    "unique": 1
+  },
+  {
+   "fieldname": "icon",
+   "fieldtype": "Attach Image",
+   "label": "Icon"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-29 18:12:41.462798",
+ "modified": "2025-07-08 14:16:04.774122",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Amenity",

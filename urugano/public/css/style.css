@@ -8,7 +8,6 @@
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-red-500: oklch(63.7% 0.237 25.331);
-    --color-amber-400: oklch(82.8% 0.189 84.429);
     --color-amber-700: oklch(55.5% 0.163 48.998);
     --color-green-300: oklch(87.1% 0.15 154.449);
     --color-green-700: oklch(52.7% 0.154 150.069);
@@ -290,9 +289,6 @@
   .mt-12 {
     margin-top: calc(var(--spacing) * 12);
   }
-  .mt-18 {
-    margin-top: calc(var(--spacing) * 18);
-  }
   .mr-4 {
     margin-right: calc(var(--spacing) * 4);
   }
@@ -332,6 +328,9 @@
   .table {
     display: table;
   }
+  .h-4 {
+    height: calc(var(--spacing) * 4);
+  }
   .h-20 {
     height: calc(var(--spacing) * 20);
   }
@@ -365,23 +364,14 @@
   .w-4 {
     width: calc(var(--spacing) * 4);
   }
-  .w-16 {
-    width: calc(var(--spacing) * 16);
-  }
   .w-60 {
     width: calc(var(--spacing) * 60);
   }
   .w-\[40\%\] {
     width: 40%;
   }
-  .w-\[60px\] {
-    width: 60px;
-  }
   .w-\[100px\] {
     width: 100px;
-  }
-  .w-\[120px\] {
-    width: 120px;
   }
   .w-\[600px\] {
     width: 600px;
@@ -442,9 +432,6 @@
   .items-center {
     align-items: center;
   }
-  .justify-around {
-    justify-content: space-around;
-  }
   .justify-between {
     justify-content: space-between;
   }
@@ -454,14 +441,8 @@
   .justify-end {
     justify-content: flex-end;
   }
-  .justify-start {
-    justify-content: flex-start;
-  }
   .gap-2 {
     gap: calc(var(--spacing) * 2);
-  }
-  .gap-3 {
-    gap: calc(var(--spacing) * 3);
   }
   .gap-4 {
     gap: calc(var(--spacing) * 4);
@@ -506,14 +487,11 @@
   .overflow-hidden {
     overflow: hidden;
   }
-  .overflow-x-auto {
-    overflow-x: auto;
-  }
-  .overflow-x-hidden {
-    overflow-x: hidden;
-  }
   .overflow-x-scroll {
     overflow-x: scroll;
+  }
+  .overflow-y-scroll {
+    overflow-y: scroll;
   }
   .rounded {
     border-radius: 0.25rem;
@@ -555,9 +533,6 @@
   .border-white {
     border-color: var(--color-white);
   }
-  .bg-amber-700 {
-    background-color: var(--color-amber-700);
-  }
   .bg-black\/5 {
     background-color: color-mix(in srgb, #000 5%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
@@ -591,12 +566,6 @@
   .bg-green-300 {
     background-color: var(--color-green-300);
   }
-  .bg-green-700 {
-    background-color: var(--color-green-700);
-  }
-  .bg-purple-700 {
-    background-color: var(--color-purple-700);
-  }
   .bg-red-500 {
     background-color: var(--color-red-500);
   }
@@ -615,6 +584,9 @@
       background-color: color-mix(in oklab, var(--color-white) 50%, transparent);
     }
   }
+  .object-contain {
+    object-fit: contain;
+  }
   .object-cover {
     object-fit: cover;
   }
@@ -632,9 +604,6 @@
   }
   .p-\[0\.5px\] {
     padding: 0.5px;
-  }
-  .px-2 {
-    padding-inline: calc(var(--spacing) * 2);
   }
   .px-3 {
     padding-inline: calc(var(--spacing) * 3);
@@ -674,9 +643,6 @@
   }
   .text-center {
     text-align: center;
-  }
-  .text-left {
-    text-align: left;
   }
   .text-right {
     text-align: right;
@@ -765,10 +731,6 @@
     --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
-  .shadow-\[0_0_0_5px_\#FFF\] {
-    --tw-shadow: 0 0 0 5px var(--tw-shadow-color, #FFF);
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
   .shadow-\[2rem_6rem_0_-3rem_\#fff\] {
     --tw-shadow: 2rem 6rem 0 -3rem var(--tw-shadow-color, #fff);
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
@@ -776,12 +738,6 @@
   .shadow-xl {
     --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .shadow-gray-400 {
-    --tw-shadow-color: oklch(70.7% 0.022 261.325);
-    @supports (color: color-mix(in lab, red, red)) {
-      --tw-shadow-color: color-mix(in oklab, var(--color-gray-400) var(--tw-shadow-alpha), transparent);
-    }
   }
   .transition {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
@@ -882,24 +838,9 @@
       --tw-ring-color: var(--color-blue-600);
     }
   }
-  .sm\:mt-0 {
-    @media (width >= 40rem) {
-      margin-top: calc(var(--spacing) * 0);
-    }
-  }
-  .sm\:ml-6 {
-    @media (width >= 40rem) {
-      margin-left: calc(var(--spacing) * 6);
-    }
-  }
   .sm\:grid-cols-2 {
     @media (width >= 40rem) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-  .sm\:flex-row {
-    @media (width >= 40rem) {
-      flex-direction: row;
     }
   }
   .md\:col-span-2 {

@@ -15,7 +15,7 @@ class AmenityItem(Document):
 		from frappe.types import DF
 
 		amenity: DF.Link
-		icon: DF.Link | None
+		icon: DF.AttachImage | None
 		parent: DF.Data
 		parentfield: DF.Data
 		parenttype: DF.Data

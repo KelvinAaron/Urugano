@@ -9,14 +9,12 @@ def get_context(context):
     context.landlord = landlord
     location = frappe.get_doc("Location", doc.location)
     context.location = location
-    amenity_icons = {}
 
     for amenity in doc.amenities:
         icon = None
         if amenity.icon: 
-            icon = frappe.get_doc("Amenity Icon", amenity.icon)
-            amenity_icons[amenity.amenity] = icon  
-    context.amenity_icons = amenity_icons
+            icon = amenity.icon 
+    context.icon = icon
 
     context.properties = frappe.get_all(
         "Property",

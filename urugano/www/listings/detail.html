@@ -1,7 +1,7 @@
 {% extends "urugano/templates/pages/web.html" %}
 
 {% block page_content %}
-<section class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8">
+<section class="container-6xl grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8">
 
     <!-- Title and Location on Mobile -->
     <div class="md:hidden block">
@@ -68,21 +68,19 @@
 
         <!-- Amenities -->
         <h1 class="text-lg font-bold my-4">Amenities</h1>
-        <div class="flex flex-wrap flex-col max-h-40 gap-4 overflow-x-scroll no-scrollbar overflow-x-hidden">
+        <div class="flex flex-wrap flex-col max-h-40 gap-4 overflow-y-scroll no-scrollbar">
             {% for amenity in doc.amenities %}
             <div class="flex items-center gap-2">
-                {% if amenity.amenity in amenity_icons %}
-                {% set icon = amenity_icons[amenity.amenity] %}
-                <img src="{{ icon.icon }}" alt="{{ icon.name }}" />
-                {% endif %}
+                <img src="{{ amenity.icon }}" alt="{{ amenity.name }}" class="w-4 h-4 object-contain" />
                 <p>{{ amenity.amenity }}</p>
             </div>
             {% endfor %}
         </div>
+
     </div>
 </section>
 
-<section class="container grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mt-8">
+<section class="container-6xl grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-8 mt-8">
     <!-- Price on phone -->
     <div class="space-y-4 md:hidden">
         <h1 class="text-lg font-bold">Price</h1>
@@ -115,8 +113,8 @@
         <!-- Price on tab and desktop -->
         <div class="space-y-4 hidden md:block">
             <h1 class="text-lg font-bold">Price</h1>
-            <p class="text-lg font-bold bg-green-300 py-2 px-4 rounded inline-block md:text-base lg:text-lg">RWF {{
-                doc.price }}
+            <p class="text-lg font-bold bg-green-300 py-2 px-4 rounded inline-block md:text-base lg:text-lg">{{
+                frappe.format_value(doc.price, {'fieldtype': 'Currency', 'options': 'RWF'}) }}
                 per month</p>
             <p class="text-gray-600">Negotiable</p>
         </div>
