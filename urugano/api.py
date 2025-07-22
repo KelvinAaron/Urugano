@@ -39,7 +39,7 @@ def apply_roommate():
         roommate.insert(ignore_permissions=True)
 
         return {"status": "success", "message": _("Application submitted."), "name": roommate.name}
-
+    
     except Exception as e:
         frappe.log_error(frappe.get_traceback(), "Roommate Application Error")
         frappe.throw(_("An error occurred: ") + str(e))
@@ -64,3 +64,47 @@ def search_roommate_listings():
 
     results = frappe.get_all("Roommate Profile", filters=filters, fields=["*"])
     return results
+    
+@frappe.whitelist(allow_guest=True)
+def user_roles():
+    roles = frappe.get_roles()
+    if "Landlord" in roles:
+        return True
+    else:
+        return False
+    
+@frappe.whitelist(allow_guest=True)
+def create_guest_account():
+    try:
+        data = frappe.local.request.get_json()
+        user_doc = frappe.new_doc("User")
+        user_doc.email = data.get("email")
+        user_doc.first_name = data.get("first_name")
+        user_doc.last_name = data.get("last_name")
+        user_doc.new_password = data.get("password") 
+        # user_doc.send_welcome_email = 0      
+        user_doc.insert(ignore_permissions=True)
+        print("user created")
+        return {"status": "success", "message": _("User account created successfully."), "email": user_doc.email}
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), "User Creation Error")
+        frappe.throw(_("An error occurred while creating the user account: ") + str(e))
+
+@frappe.whitelist(allow_guest=True)
+def create_landlord_account():
+    try:
+        data = frappe.local.request.get_json()
+        user_doc = frappe.new_doc("User")
+        user_doc.email = data.get("email")
+        user_doc.first_name = data.get("first_name")
+        user_doc.last_name = data.get("last_name")
+        user_doc.new_password = data.get("password")
+        user_doc.role_profile_name = "Landlord"
+        user_doc.module_profile = "Landlord"
+        # user_doc.send_welcome_email = 0      
+        user_doc.insert(ignore_permissions=True)
+        print("user created")
+        return {"status": "success", "message": _("User account created successfully."), "email": user_doc.email}
+    except Exception as e:
+        frappe.log_error(frappe.get_traceback(), "User Creation Error")
+        frappe.throw(_("An error occurred while creating the user account: ") + str(e))

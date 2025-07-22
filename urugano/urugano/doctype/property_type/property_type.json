@@ -20,7 +20,7 @@
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-05-29 18:13:23.512078",
+ "modified": "2025-07-20 21:11:57.278035",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Property Type",
@@ -38,6 +38,15 @@
    "role": "System Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Landlord",
+   "share": 1
   }
  ],
  "sort_field": "modified",

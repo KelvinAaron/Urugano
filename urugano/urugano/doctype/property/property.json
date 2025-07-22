@@ -147,7 +147,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2025-06-10 18:10:32.593406",
+ "modified": "2025-07-20 22:56:00.273557",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Property",
@@ -163,6 +163,19 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Landlord",
    "share": 1,
    "write": 1
   }

@@ -123,13 +123,23 @@
         <div class="mt-8 border-1 border-gray-300 p-4 rounded-lg">
             <h1 class="text-xl text-blue-600 font-bold my-4">Similar Properties</h1>
             {% for property in properties %}
-            <a href="/listings/detail/{{ property.name }}"
-                class="block mb-4 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer">
-                <div class="flex flex-col gap-4">
-                    <img class="w-full h-auto rounded" src="{{ property.image }}" alt="placeholder">
-                </div>
-            </a>
+                {% if property.name != doc.name %}
+                    {% if property.price <= doc.price + 50000 and property.price >= doc.price - 50000 %}
+                        <a href="/listings/detail/{{ property.name }}" class="block mb-4 hover:shadow-lg transition-shadow duration-200 hover:cursor-pointer">
+                            <div class="rounded-lg overflow-hidden shadow p-4 bg-white">
+                                <div><img src="{{ property.image }}" alt="" class="w-full rounded-2xl h-40 object-cover mb-3"/></div>
+                                <div>
+                                    <h2 class="text-lg font-semibold mb-1">{{ property.title }}</h2>
+                                    <p class="text-sm text-gray-600 mb-1 font-light">{{ property.location }}</p>
+                                    <p class="text-sm text-gray-600 mb-1 font-bold">{{
+                                frappe.format_value(property.price, {'fieldtype': 'Currency', 'options': 'RWF'}) }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endif %}
             {% endfor %}
+
         </div>
     </div>
 </section>

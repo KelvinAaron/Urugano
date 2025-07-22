@@ -22,8 +22,8 @@
     document.getElementById("loginForm").addEventListener("submit", async function (e) {
     e.preventDefault();
 
-    const usr = document.getElementById("username").value;
-    const pwd = document.getElementById("password").value;
+    const usr_name = document.getElementById("username").value;
+    const pwd_value = document.getElementById("password").value;
     const btn = document.getElementById("login-button");
 
     btn.disabled = true;
@@ -33,29 +33,27 @@
         const response = await fetch(`/api/method/login`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
-        body: new URLSearchParams({ usr, pwd }),
-        credentials: "include" 
+        body: JSON.stringify({
+        usr: usr_name,
+        pwd: pwd_value
+        })
         });
 
         if (!response.ok) throw new Error("Invalid credentials");
 
         const data = await response.json();
         console.log("Logged in:", data);
-        alert(`Welcome, ${data.full_name}`);
 
-        // You can now call authenticated routes like get_logged_user
-        fetch(`/api/method/urugano.api.get_logged_user`)
-        .then(response => response.json())
-        .then(data => {
-            console.log("Logged in:", data);
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-
-        window.location.href = "/app";
+        user_roles = await fetch("/api/method/urugano.api.user_roles");
+        roles = await user_roles.json();
+        if (roles.message === true){
+            window.location.href = "/app";
+        }else{
+            window.location.href = "/"
+        }
 
     } catch (err) {
         console.error(err);

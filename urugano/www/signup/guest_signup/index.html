@@ -1,0 +1,90 @@
+{# urugano/www/property/index.html #}
+
+{% extends "urugano/templates/pages/web.html" %}
+
+{% block page_content %}
+<section class="flex justify-center items-center">
+    <div class="flex flex-col gap-4 bg-white p-4 rounded-lg min-w-[400px] min-h-[400px]">
+        <h1 class="text-2xl font-semibold mb-4 self-center">Login</h1>
+        <form id="signupForm" class="flex flex-col gap-4">
+            <label for="email">Enter your email</label>
+            <input id="email" name="email" type="text" placeholder="Email"
+                class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600" required>
+            <label for="first_name">Enter your First Name</label>
+            <input id="first_name" name="first_name" type="text" placeholder="First Name"
+                class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600" required>
+            <label for="last_name">Enter your Last Name</label>
+            <input id="last_name" name="last_name" type="text" placeholder="Last Name"
+                class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
+            <label for="password">Enter your Password</label>
+            <input id="password" name="password" type="password" placeholder="Password"
+                class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600" required>
+            <button type="submit" id="login-button" class="btn">Sign Up</button>
+        </form>
+    </div>
+</section>
+{% endblock %}
+
+{% block js_content %}
+<script>
+    document.getElementById("signupForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const usr_name = document.getElementById("email").value;
+        const pwd_value = document.getElementById("password").value;
+
+        const form = document.getElementById('signupForm');
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        console.log(data);
+
+        new_user = await fetch('/api/method/urugano.api.create_guest_account', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+
+        response = await new_user.json();
+        console.log(response);
+        form.reset();
+
+        try {
+            const response = await fetch(`/api/method/login`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    usr: usr_name,
+                    pwd: pwd_value
+                })
+            });
+
+            if (!response.ok) throw new Error("Invalid credentials");
+
+            const data = await response.json();
+            console.log("Logged in:", data);
+            alert(`Welcome, ${data.full_name}`);
+
+            user_roles = await fetch("/api/method/urugano.api.user_roles");
+            roles = await user_roles.json();
+            if (roles.message === true) {
+                window.location.href = "/app";
+            } else {
+                window.location.href = "/"
+            }
+
+        } catch (err) {
+            console.error(err);
+            alert("Login failed");
+
+        }
+
+
+    });
+
+</script>
+{% endblock %}
