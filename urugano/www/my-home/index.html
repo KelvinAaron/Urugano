@@ -1,5 +1,6 @@
 {% extends "urugano/templates/pages/web.html" %}
 {% from "urugano/templates/components/property_card.html" import property_card with context %}
+{% from "urugano/templates/components/search_form.html" import search_form with context %}
 {% block title %}Urugano Realty — Find Your Home in Rwanda{% endblock %}
 
 {% block page_content %}
@@ -21,23 +22,7 @@
 <!-- ── Quick Search ───────────────────────────────────────────── -->
 <section class="bg-white shadow-sm border-b border-border">
     <div class="container-page py-6">
-        <form class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 items-end">
-            <div class="lg:col-span-2">
-                <input name="location" type="text" placeholder="Search by location…" class="input">
-            </div>
-            <select name="property_type" class="select">
-                <option value="">Property Type</option>
-                <option>Apartment</option>
-                <option>House</option>
-                <option>Studio</option>
-            </select>
-            <select name="furnished" class="select">
-                <option value="">Furnished</option>
-                <option>Yes</option>
-                <option>No</option>
-            </select>
-            <button type="submit" id="search-button" class="btn w-full">Search</button>
-        </form>
+        {{ search_form(action="/listings") }}
     </div>
 </section>
 
@@ -116,15 +101,3 @@
 
 {% endblock %}
 
-{% block js_content %}
-<script defer>
-    document.getElementById('search-button').addEventListener('click', function(e) {
-        e.preventDefault();
-        const location = document.querySelector('input[name="location"]').value;
-        const propertyType = document.querySelector('select[name="property_type"]').value;
-        const furnished = document.querySelector('select[name="furnished"]').value;
-        const url = `/listings?location=${location}&property_type=${propertyType}&furnished=${furnished}`;
-        window.location.href = url;
-    });
-</script>
-{% endblock %}

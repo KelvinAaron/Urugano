@@ -1,9 +1,6 @@
-# your_app/www/property/index.py
-
 import frappe
 
 def get_context(context):
-    # url = `/listings?location=${location}&property_type=${propertyType}&max_price=${maxPrice}&furnished=${furnished}&rooms=${number_of_rooms}`
     filters = {}
 
     property_type = frappe.form_dict.get("property_type")
@@ -28,10 +25,6 @@ def get_context(context):
         filters["price"] = ["<=", max_price]
 
 
-
-    print('\n\n\n\n')
-    print(filters)
-    print('\n\n\n\n')
 
     context.properties = frappe.get_all(
         "Property",
