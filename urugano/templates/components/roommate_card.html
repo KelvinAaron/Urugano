@@ -1,0 +1,89 @@
+{# ── Roommate Card ────────────────────────────────────────────────
+   Usage:
+     {% from "urugano/templates/components/roommate_card.html" import roommate_card with context %}
+     {{ roommate_card(roommate) }}
+#}
+
+{% from "urugano/templates/components/dialog.html" import dialog, dialog_trigger %}
+
+{% macro roommate_card(roommate) %}
+{% set dialog_id = "contact-" ~ roommate.name %}
+
+<div class="card card-body p-6 flex flex-col gap-4">
+
+    <div class="flex items-center gap-4">
+        <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center shrink-0">
+            <i data-lucide="circle-user-round" class="w-6 h-6 text-brand"></i>
+        </div>
+        <div>
+            <h2 class="font-semibold text-gray-800">{{ roommate.name1 }}</h2>
+            <p class="text-xs text-muted">{{ roommate.gender }}, {{ roommate.age }} years old</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+        <div class="bg-surface-alt rounded-card p-3 text-center">
+            <p class="font-semibold text-sm text-gray-800">{{ roommate.preferred_roommate }}</p>
+            <p class="text-xs text-muted mt-0.5">Preferred Gender</p>
+        </div>
+        <div class="bg-surface-alt rounded-card p-3 text-center">
+            <p class="font-semibold text-sm text-gray-800">{{ roommate.preferred_location }}</p>
+            <p class="text-xs text-muted mt-0.5">Location</p>
+        </div>
+        <div class="bg-surface-alt rounded-card p-3 text-center">
+            <p class="font-semibold text-sm text-brand">
+                {{ frappe.format_value(roommate.minimum_budget, {'fieldtype': 'Currency', 'options': 'RWF'}) }}
+            </p>
+            <p class="text-xs text-muted mt-0.5">Min Budget</p>
+        </div>
+        <div class="bg-surface-alt rounded-card p-3 text-center">
+            <p class="font-semibold text-sm text-brand">
+                {{ frappe.format_value(roommate.maximum_budget, {'fieldtype': 'Currency', 'options': 'RWF'}) }}
+            </p>
+            <p class="text-xs text-muted mt-0.5">Max Budget</p>
+        </div>
+    </div>
+
+    {{ dialog_trigger(dialog_id, "Contact", "btn w-full mt-auto") }}
+
+</div>
+
+{# ── Contact dialog ───────────────────────────────────────────── #}
+{% call dialog(dialog_id, "Contact " ~ roommate.name1) %}
+
+    <div class="flex items-center gap-3 pb-4 mb-4 border-b border-border">
+        <div class="w-10 h-10 bg-brand-light rounded-pill flex items-center justify-center shrink-0">
+            <i data-lucide="circle-user-round" class="w-5 h-5 text-brand"></i>
+        </div>
+        <div>
+            <p class="font-semibold text-gray-800">{{ roommate.name1 }}</p>
+            <p class="text-xs text-muted">{{ roommate.gender }} · {{ roommate.preferred_location }}</p>
+        </div>
+    </div>
+
+    <form class="flex flex-col gap-4" onsubmit="return false;">
+        <div class="form-group">
+            <label class="label">Your name</label>
+            <input type="text" class="input" placeholder="Full name">
+        </div>
+        <div class="form-group">
+            <label class="label">Your email</label>
+            <input type="email" class="input" placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+            <label class="label">Message</label>
+            <textarea class="textarea" placeholder="Introduce yourself and share a bit about your lifestyle…"></textarea>
+        </div>
+        <div class="flex justify-end gap-3 pt-1">
+            <button type="button"
+                    @click="$dispatch('close-dialog', { id: '{{ dialog_id }}' })"
+                    class="btn-outline">
+                Cancel
+            </button>
+            <button type="submit" class="btn">Send Message</button>
+        </div>
+    </form>
+
+{% endcall %}
+
+{% endmacro %}

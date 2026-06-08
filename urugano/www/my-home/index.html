@@ -1,0 +1,130 @@
+{% extends "urugano/templates/pages/web.html" %}
+{% from "urugano/templates/components/property_card.html" import property_card with context %}
+{% block title %}Urugano Realty — Find Your Home in Rwanda{% endblock %}
+
+{% block page_content %}
+
+<!-- ── Hero ──────────────────────────────────────────────────── -->
+<section style="background: linear-gradient(135deg, oklch(37.9% 0.146 265.522) 0%, oklch(54.6% 0.245 262.881) 55%, oklch(62.3% 0.214 259.815) 100%);">
+    <div class="container-page py-28 text-center text-white">
+        <span class="badge-secondary text-xs mb-6 inline-block">Kigali, Rwanda</span>
+        <h1 class="text-5xl font-bold leading-tight mb-4">Find Your Perfect Home<br>in Rwanda</h1>
+        <p class="text-lg mb-10 max-w-xl mx-auto" style="color: rgba(255,255,255,0.8);">
+            Tailored for international students and expats. Safe, verified, and convenient housing across Kigali.
+        </p>
+        <a href="/listings" class="inline-block bg-white text-brand font-semibold px-8 py-3 rounded-btn hover:bg-brand-light transition-colors duration-300 text-sm">
+            Browse All Listings
+        </a>
+    </div>
+</section>
+
+<!-- ── Quick Search ───────────────────────────────────────────── -->
+<section class="bg-white shadow-sm border-b border-border">
+    <div class="container-page py-6">
+        <form class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 items-end">
+            <div class="lg:col-span-2">
+                <input name="location" type="text" placeholder="Search by location…" class="input">
+            </div>
+            <select name="property_type" class="select">
+                <option value="">Property Type</option>
+                <option>Apartment</option>
+                <option>House</option>
+                <option>Studio</option>
+            </select>
+            <select name="furnished" class="select">
+                <option value="">Furnished</option>
+                <option>Yes</option>
+                <option>No</option>
+            </select>
+            <button type="submit" id="search-button" class="btn w-full">Search</button>
+        </form>
+    </div>
+</section>
+
+<!-- ── Featured Listings ─────────────────────────────────────── -->
+{% if features|length > 0 %}
+<section class="section">
+    <div class="container-page">
+        <div class="flex items-center justify-between mb-6">
+            <h2 class="section-title mb-0">Featured Listings</h2>
+            <a href="/listings" class="text-sm text-brand font-medium hover:underline">View all →</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for property in features %}
+            {{ property_card(property) }}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ── Why Urugano ────────────────────────────────────────────── -->
+<section class="section-alt">
+    <div class="container-page">
+        <h2 class="section-title text-center">Why Urugano Realty?</h2>
+        <p class="text-center text-muted text-sm mb-12 max-w-md mx-auto">
+            We help international students and expats find safe, comfortable housing without the hassle.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card card-body text-center p-8">
+                <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="shield" class="w-6 h-6 text-brand"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">Verified Listings</h3>
+                <p class="text-sm text-muted leading-relaxed">
+                    Only trusted landlords and properties approved for international residents.
+                </p>
+            </div>
+            <div class="card card-body text-center p-8">
+                <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="house-wifi" class="w-6 h-6 text-brand"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">Roommate Finder</h3>
+                <p class="text-sm text-muted leading-relaxed">
+                    Connect with fellow students and professionals to share accommodation.
+                </p>
+            </div>
+            <div class="card card-body text-center p-8">
+                <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="square-parking" class="w-6 h-6 text-brand"></i>
+                </div>
+                <h3 class="font-semibold text-gray-800 mb-2">Multi-Currency</h3>
+                <p class="text-sm text-muted leading-relaxed">
+                    We support RWF and USD, with both English and French interfaces.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA Banner ─────────────────────────────────────────────── -->
+<section class="section bg-brand">
+    <div class="container-page text-center text-white">
+        <h2 class="text-3xl font-bold mb-3">Ready to find your home?</h2>
+        <p class="mb-8 text-sm" style="color: rgba(255,255,255,0.8);">Join hundreds of students and expats who found their perfect place through Urugano Realty.</p>
+        <div class="flex gap-4 justify-center flex-wrap">
+            <a href="/listings" class="inline-block bg-white text-brand font-semibold px-8 py-3 rounded-btn hover:bg-brand-light transition-colors text-sm">
+                Browse Listings
+            </a>
+            <a href="/signup" class="inline-block border border-white text-white font-semibold px-8 py-3 rounded-btn hover:bg-white hover:text-brand transition-colors text-sm">
+                Create Account
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block js_content %}
+<script defer>
+    document.getElementById('search-button').addEventListener('click', function(e) {
+        e.preventDefault();
+        const location = document.querySelector('input[name="location"]').value;
+        const propertyType = document.querySelector('select[name="property_type"]').value;
+        const furnished = document.querySelector('select[name="furnished"]').value;
+        const url = `/listings?location=${location}&property_type=${propertyType}&furnished=${furnished}`;
+        window.location.href = url;
+    });
+</script>
+{% endblock %}

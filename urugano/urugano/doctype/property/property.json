@@ -12,7 +12,6 @@
   "image",
   "published",
   "featured",
-  "furnished",
   "section_break_qnoz",
   "landlord",
   "no_of_rooms",
@@ -20,8 +19,29 @@
   "column_break_dvli",
   "location",
   "price",
-  "section_break_wlud",
-  "amenities",
+  "amenities_section",
+  "furnished",
+  "wifi",
+  "backup_generator",
+  "solar_power",
+  "tv",
+  "parking_space",
+  "pet_friendly",
+  "elevator",
+  "house_cleaner",
+  "column_break_kzgd",
+  "microwave",
+  "washing_machine",
+  "refrigerator",
+  "air_conditioning",
+  "gas_stove",
+  "cctv",
+  "column_break_ugdu",
+  "swimming_pool",
+  "garden__yard",
+  "balcony",
+  "gym",
+  "security_guard",
   "section_break_dcop",
   "description",
   "gallery_tab",
@@ -110,16 +130,6 @@
    "options": "Property Type"
   },
   {
-   "fieldname": "section_break_wlud",
-   "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "amenities",
-   "fieldtype": "Table",
-   "label": "Amenities",
-   "options": "Amenity Item"
-  },
-  {
    "fieldname": "image",
    "fieldtype": "Attach Image",
    "label": "image"
@@ -140,6 +150,133 @@
    "fieldname": "bathrooms",
    "fieldtype": "Int",
    "label": "Bathrooms"
+  },
+  {
+   "fieldname": "amenities_section",
+   "fieldtype": "Section Break",
+   "label": "Amenities"
+  },
+  {
+   "default": "0",
+   "fieldname": "wifi",
+   "fieldtype": "Check",
+   "label": "Wifi"
+  },
+  {
+   "default": "0",
+   "fieldname": "backup_generator",
+   "fieldtype": "Check",
+   "label": "Backup Generator"
+  },
+  {
+   "default": "0",
+   "fieldname": "solar_power",
+   "fieldtype": "Check",
+   "label": "Solar Power"
+  },
+  {
+   "default": "0",
+   "fieldname": "tv",
+   "fieldtype": "Check",
+   "label": "TV"
+  },
+  {
+   "default": "0",
+   "fieldname": "parking_space",
+   "fieldtype": "Check",
+   "label": "Parking Space"
+  },
+  {
+   "default": "0",
+   "fieldname": "pet_friendly",
+   "fieldtype": "Check",
+   "label": "Pet Friendly"
+  },
+  {
+   "default": "0",
+   "fieldname": "elevator",
+   "fieldtype": "Check",
+   "label": "Elevator"
+  },
+  {
+   "default": "0",
+   "fieldname": "house_cleaner",
+   "fieldtype": "Check",
+   "label": "House Cleaner"
+  },
+  {
+   "fieldname": "column_break_kzgd",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "microwave",
+   "fieldtype": "Check",
+   "label": "Microwave"
+  },
+  {
+   "default": "0",
+   "fieldname": "washing_machine",
+   "fieldtype": "Check",
+   "label": "Washing Machine"
+  },
+  {
+   "default": "0",
+   "fieldname": "refrigerator",
+   "fieldtype": "Check",
+   "label": "Refrigerator"
+  },
+  {
+   "default": "0",
+   "fieldname": "air_conditioning",
+   "fieldtype": "Check",
+   "label": "Air Conditioning"
+  },
+  {
+   "default": "0",
+   "fieldname": "gas_stove",
+   "fieldtype": "Check",
+   "label": "Gas Stove"
+  },
+  {
+   "default": "0",
+   "fieldname": "cctv",
+   "fieldtype": "Check",
+   "label": "CCTV"
+  },
+  {
+   "fieldname": "column_break_ugdu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "swimming_pool",
+   "fieldtype": "Check",
+   "label": "Swimming Pool"
+  },
+  {
+   "default": "0",
+   "fieldname": "garden__yard",
+   "fieldtype": "Check",
+   "label": "Garden / Yard"
+  },
+  {
+   "default": "0",
+   "fieldname": "balcony",
+   "fieldtype": "Check",
+   "label": "Balcony"
+  },
+  {
+   "default": "0",
+   "fieldname": "gym",
+   "fieldtype": "Check",
+   "label": "Gym"
+  },
+  {
+   "default": "0",
+   "fieldname": "security_guard",
+   "fieldtype": "Check",
+   "label": "Security Guard"
   }
  ],
  "grid_page_length": 50,
@@ -147,7 +284,7 @@
  "index_web_pages_for_search": 1,
  "is_published_field": "published",
  "links": [],
- "modified": "2025-07-20 22:56:00.273557",
+ "modified": "2026-06-08 15:06:46.047710",
  "modified_by": "Administrator",
  "module": "Urugano",
  "name": "Property",
@@ -181,6 +318,7 @@
   }
  ],
  "route": "listings/[name].html",
+ "row_format": "Dynamic",
  "show_title_field_in_link": 1,
  "sort_field": "modified",
  "sort_order": "DESC",

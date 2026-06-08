@@ -1,68 +1,80 @@
-{# urugano/www/property/index.html #}
-
 {% extends "urugano/templates/pages/web.html" %}
+{% block title %}Sign In — Urugano Realty{% endblock %}
 
 {% block page_content %}
-    <section class="flex justify-center items-center">
-        <div class="flex flex-col gap-4 bg-white p-4 rounded-lg min-w-[400px] min-h-[400px]">
-            <h1 class="text-2xl font-semibold mb-4 self-center">Login</h1>
-            <form id="loginForm" class="flex flex-col gap-4">
-                <input id="username" name="email" type="text" placeholder="Username" class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
-                <input id="password" name="password" type="password" placeholder="Password" class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
-                <button type="submit" id="login-button" class="btn">Login</button>
+<section class="flex items-center justify-center py-16 px-4">
+    <div class="w-full max-w-md">
+
+        <!-- Logo accent -->
+        <div class="text-center mb-8">
+            <a href="/" class="inline-flex items-center gap-1 mb-6">
+                <span class="text-2xl font-bold text-brand">Urugano</span>
+                <span class="text-2xl font-light text-gray-400">Realty</span>
+            </a>
+            <h1 class="text-2xl font-bold text-gray-800">Welcome back</h1>
+            <p class="text-sm text-muted mt-1">Sign in to your account</p>
+        </div>
+
+        <div class="card card-body p-8">
+            <form id="loginForm" class="flex flex-col gap-5">
+                <div class="form-group">
+                    <label for="username" class="label">Email address</label>
+                    <input id="username" name="email" type="text" placeholder="you@example.com" class="input">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="label">Password</label>
+                    <input id="password" name="password" type="password" placeholder="••••••••" class="input">
+                </div>
+                <button type="submit" id="login-button" class="btn w-full mt-1">Sign In</button>
             </form>
         </div>
-    </section>
+
+        <p class="text-center text-sm text-muted mt-6">
+            Don't have an account?
+            <a href="/signup" class="text-brand font-medium hover:underline">Register</a>
+        </p>
+
+    </div>
+</section>
 {% endblock %}
 
-{% block js_content %}   
+{% block js_content %}
 <script>
-    // const baseURL = "https://your-frappe-instance.com";
-
     document.getElementById("loginForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+        e.preventDefault();
 
-    const usr_name = document.getElementById("username").value;
-    const pwd_value = document.getElementById("password").value;
-    const btn = document.getElementById("login-button");
+        const usr_name = document.getElementById("username").value;
+        const pwd_value = document.getElementById("password").value;
+        const btn = document.getElementById("login-button");
 
-    btn.disabled = true;
-    btn.textContent = "Logging in...";
+        btn.disabled = true;
+        btn.textContent = "Signing in…";
 
-    try {
-        const response = await fetch(`/api/method/login`, {
-        method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-        usr: usr_name,
-        pwd: pwd_value
-        })
-        });
+        try {
+            const response = await fetch(`/api/method/login`, {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ usr: usr_name, pwd: pwd_value })
+            });
 
-        if (!response.ok) throw new Error("Invalid credentials");
+            if (!response.ok) throw new Error("Invalid credentials");
 
-        const data = await response.json();
-        console.log("Logged in:", data);
+            const data = await response.json();
+            console.log("Logged in:", data);
 
-        user_roles = await fetch("/api/method/urugano.api.user_roles");
-        roles = await user_roles.json();
-        if (roles.message === true){
-            window.location.href = "/app";
-        }else{
-            window.location.href = "/"
+            const { message: isLandlord } = await frappe.call({ method: 'urugano.api.auth.user_roles' });
+            window.location.href = isLandlord ? "/app" : "/";
+
+        } catch (err) {
+            console.error(err);
+            alert("Login failed. Please check your credentials.");
+        } finally {
+            btn.disabled = false;
+            btn.textContent = "Sign In";
         }
-
-    } catch (err) {
-        console.error(err);
-        alert("Login failed");
-        
-    } finally {
-        btn.disabled = false;
-        btn.textContent = "Login";
-    }
     });
 </script>
 {% endblock %}

@@ -1,26 +1,63 @@
-{# urugano/www/property/index.html #}
-
 {% extends "urugano/templates/pages/web.html" %}
+{% block title %}Guest Registration — Urugano Realty{% endblock %}
 
 {% block page_content %}
-<section class="flex justify-center items-center">
-    <div class="flex flex-col gap-4 bg-white p-4 rounded-lg min-w-[400px] min-h-[400px]">
-        <h1 class="text-2xl font-semibold mb-4 self-center">Login</h1>
-        <form id="signupForm" class="flex flex-col gap-4">
-            <label for="email">Enter your email</label>
-            <input id="email" name="email" type="text" placeholder="Email"
-                class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600" required>
-            <label for="first_name">Enter your First Name</label>
-            <input id="first_name" name="first_name" type="text" placeholder="First Name"
-                class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600" required>
-            <label for="last_name">Enter your Last Name</label>
-            <input id="last_name" name="last_name" type="text" placeholder="Last Name"
-                class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600">
-            <label for="password">Enter your Password</label>
-            <input id="password" name="password" type="password" placeholder="Password"
-                class="border rounded px-4 py-2 active:ring-2 active:ring-blue-600" required>
-            <button type="submit" id="login-button" class="btn">Sign Up</button>
-        </form>
+<section class="flex items-center justify-center py-16 px-4">
+    <div class="w-full max-w-md">
+
+        <div class="text-center mb-8">
+            <a href="/" class="inline-flex items-center gap-1 mb-6">
+                <span class="text-2xl font-bold text-brand">Urugano</span>
+                <span class="text-2xl font-light text-gray-400">Realty</span>
+            </a>
+            <h1 class="text-2xl font-bold text-gray-800">Create a Guest Account</h1>
+            <p class="text-sm text-muted mt-1">Find your next home in Rwanda</p>
+        </div>
+
+        <div class="card card-body p-8">
+            <form id="signupForm" class="flex flex-col gap-5">
+
+                <div class="form-group">
+                    <label for="email" class="label">
+                        Email address <span class="text-danger">*</span>
+                    </label>
+                    <input id="email" name="email" type="email" placeholder="you@example.com" class="input" required>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group">
+                        <label for="first_name" class="label">
+                            First name <span class="text-danger">*</span>
+                        </label>
+                        <input id="first_name" name="first_name" type="text" placeholder="First" class="input" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name" class="label">Last name</label>
+                        <input id="last_name" name="last_name" type="text" placeholder="Last" class="input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="label">
+                        Password <span class="text-danger">*</span>
+                    </label>
+                    <input id="password" name="password" type="password" placeholder="Choose a strong password" class="input" required>
+                </div>
+
+                <button type="submit" id="login-button" class="btn w-full mt-1">Create Account</button>
+
+            </form>
+        </div>
+
+        <p class="text-center text-sm text-muted mt-6">
+            Already have an account?
+            <a href="/login" class="text-brand font-medium hover:underline">Sign in</a>
+        </p>
+        <p class="text-center text-sm text-muted mt-2">
+            Are you a landlord?
+            <a href="/signup/landlord_signup" class="text-brand font-medium hover:underline">Register as Landlord</a>
+        </p>
+
     </div>
 </section>
 {% endblock %}
@@ -36,55 +73,28 @@
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
-        console.log(data);
-
-        new_user = await fetch('/api/method/urugano.api.create_guest_account', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-
-        response = await new_user.json();
-        console.log(response);
+        await frappe.call({ method: 'urugano.api.auth.create_guest_account', args: data });
         form.reset();
 
         try {
             const response = await fetch(`/api/method/login`, {
                 method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    usr: usr_name,
-                    pwd: pwd_value
-                })
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({ usr: usr_name, pwd: pwd_value })
             });
 
             if (!response.ok) throw new Error("Invalid credentials");
 
             const data = await response.json();
-            console.log("Logged in:", data);
             alert(`Welcome, ${data.full_name}`);
 
-            user_roles = await fetch("/api/method/urugano.api.user_roles");
-            roles = await user_roles.json();
-            if (roles.message === true) {
-                window.location.href = "/app";
-            } else {
-                window.location.href = "/"
-            }
+            const { message: isLandlord } = await frappe.call({ method: 'urugano.api.auth.user_roles' });
+            window.location.href = isLandlord ? "/app" : "/";
 
         } catch (err) {
             console.error(err);
             alert("Login failed");
-
         }
-
-
     });
-
 </script>
 {% endblock %}

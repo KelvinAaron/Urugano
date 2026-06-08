@@ -13,14 +13,22 @@ export_python_type_annotations = True
 
 fixtures = [
     # export all records from the Category table
-    "Property", "Landlord", "Location", "Tenant", "Property Type", "Amenity", "Gallery", "Amenity Item", "Amenity Icon"
+    "Property",
+    "Landlord",
+    "Location",
+    "Tenant",
+    "Property Type",
+    "Amenity",
+    "Gallery",
+    "Amenity Item",
+    "Amenity Icon",
 ]
 
 # Home Pages
 # ----------
 
 # application home page (will override Website Settings)
-home_page = "home"
+home_page = "my-home"
 
 # website user home page (by Role)
 # role_home_page = {
@@ -77,7 +85,6 @@ web_include_js = "/assets/urugano/js/csrf_setup.js"
 # ------------------
 # include app icons in desk
 # app_include_icons = "urugano/public/icons.svg"
-
 
 
 # Generators
@@ -252,13 +259,6 @@ web_include_js = "/assets/urugano/js/csrf_setup.js"
 # ]
 
 
-
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-
-
-
-
-
-
