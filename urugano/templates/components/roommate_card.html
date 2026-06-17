@@ -9,35 +9,38 @@
 {% macro roommate_card(roommate) %}
 {% set dialog_id = "contact-" ~ roommate.name %}
 
-<div class="card card-body p-6 flex flex-col gap-4">
+<div class="card p-5 flex flex-col gap-4">
 
-    <div class="flex items-center gap-4">
-        <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center shrink-0">
-            <i data-lucide="circle-user-round" class="w-6 h-6 text-brand"></i>
+    <!-- Profile header -->
+    <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 font-bold text-lg text-white"
+             style="background: linear-gradient(135deg, oklch(35% 0.115 163) 0%, oklch(52% 0.12 163) 100%);">
+            {{ roommate.name1[0] | upper if roommate.name1 else '?' }}
         </div>
-        <div>
-            <h2 class="font-semibold text-gray-800">{{ roommate.name1 }}</h2>
-            <p class="text-xs text-muted">{{ roommate.gender }}, {{ roommate.age }} years old</p>
+        <div class="min-w-0">
+            <h2 class="font-semibold text-gray-800 truncate" style="font-family: var(--font-display)">{{ roommate.name1 }}</h2>
+            <p class="text-xs text-muted">{{ roommate.gender }}&ensp;·&ensp;{{ roommate.age }} yrs</p>
         </div>
     </div>
 
-    <div class="grid grid-cols-2 gap-3">
-        <div class="bg-surface-alt rounded-card p-3 text-center">
-            <p class="font-semibold text-sm text-gray-800">{{ roommate.preferred_roommate }}</p>
-            <p class="text-xs text-muted mt-0.5">Preferred Gender</p>
+    <!-- Stats grid -->
+    <div class="grid grid-cols-2 gap-2">
+        <div class="bg-surface-alt rounded-xl p-3 text-center">
+            <p class="font-semibold text-sm text-gray-800 truncate">{{ roommate.preferred_roommate }}</p>
+            <p class="text-xs text-muted mt-0.5">Pref. Gender</p>
         </div>
-        <div class="bg-surface-alt rounded-card p-3 text-center">
-            <p class="font-semibold text-sm text-gray-800">{{ roommate.preferred_location }}</p>
+        <div class="bg-surface-alt rounded-xl p-3 text-center">
+            <p class="font-semibold text-sm text-gray-800 truncate">{{ roommate.preferred_location }}</p>
             <p class="text-xs text-muted mt-0.5">Location</p>
         </div>
-        <div class="bg-surface-alt rounded-card p-3 text-center">
-            <p class="font-semibold text-sm text-brand">
+        <div class="bg-brand-light rounded-xl p-3 text-center">
+            <p class="font-semibold text-sm text-brand truncate">
                 {{ frappe.format_value(roommate.minimum_budget, {'fieldtype': 'Currency', 'options': 'RWF'}) }}
             </p>
             <p class="text-xs text-muted mt-0.5">Min Budget</p>
         </div>
-        <div class="bg-surface-alt rounded-card p-3 text-center">
-            <p class="font-semibold text-sm text-brand">
+        <div class="bg-brand-light rounded-xl p-3 text-center">
+            <p class="font-semibold text-sm text-brand truncate">
                 {{ frappe.format_value(roommate.maximum_budget, {'fieldtype': 'Currency', 'options': 'RWF'}) }}
             </p>
             <p class="text-xs text-muted mt-0.5">Max Budget</p>
@@ -48,12 +51,13 @@
 
 </div>
 
-{# ── Contact dialog ───────────────────────────────────────────── #}
+{# ── Contact dialog ──────────────────────────────────────────────── #}
 {% call dialog(dialog_id, "Contact " ~ roommate.name1) %}
 
     <div class="flex items-center gap-3 pb-4 mb-4 border-b border-border">
-        <div class="w-10 h-10 bg-brand-light rounded-pill flex items-center justify-center shrink-0">
-            <i data-lucide="circle-user-round" class="w-5 h-5 text-brand"></i>
+        <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 text-white font-bold"
+             style="background: linear-gradient(135deg, oklch(35% 0.115 163) 0%, oklch(52% 0.12 163) 100%);">
+            {{ roommate.name1[0] | upper if roommate.name1 else '?' }}
         </div>
         <div>
             <p class="font-semibold text-gray-800">{{ roommate.name1 }}</p>
@@ -72,11 +76,11 @@
         </div>
         <div class="form-group">
             <label class="label">Message</label>
-            <textarea class="textarea" placeholder="Introduce yourself and share a bit about your lifestyle…"></textarea>
+            <textarea class="textarea" placeholder="Introduce yourself and share a bit about your lifestyle…" rows="3"></textarea>
         </div>
         <div class="flex justify-end gap-3 pt-1">
             <button type="button"
-                    @click="$dispatch('close-dialog', { id: '{{ dialog_id }}' })"
+                    onclick="Urugano.closeDialog('{{ dialog_id }}')"
                     class="btn-outline">
                 Cancel
             </button>

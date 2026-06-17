@@ -4,118 +4,225 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Urugano Realty{% endblock %}</title>
+
+    <!-- Fonts: Playfair Display (headings) + DM Sans (body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,300;0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="/assets/urugano/css/style.css">
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
-    <style>[x-cloak] { display: none !important; }</style>
+    <script src="/assets/urugano/js/lucide.min.js" defer></script>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- ── Header ─────────────────────────────────────────── -->
-    <header class="bg-white border-b border-border fixed w-full z-50">
+    <!-- ── Header ──────────────────────────────────────────────── -->
+    <header id="site-header" class="bg-surface border-b border-border fixed w-full z-50 transition-shadow duration-300">
         <div class="container-page flex items-center justify-between h-16">
 
             <!-- Logo -->
-            <a href="/" class="flex items-center gap-1 shrink-0">
-                <span class="text-lg font-bold text-brand">Urugano</span>
-                <span class="text-lg font-light text-gray-500">Realty</span>
+            <a href="/" class="flex items-center gap-2 shrink-0 group">
+                <div class="w-8 h-8 bg-brand rounded-lg flex items-center justify-center shadow-sm group-hover:bg-brand-hover transition-colors duration-200">
+                    <i data-lucide="home" class="w-4 h-4 text-white"></i>
+                </div>
+                <div class="flex items-baseline gap-0.5">
+                    <span class="text-lg font-bold text-brand leading-none" style="font-family: var(--font-display)">Urugano</span>
+                    <span class="text-sm font-light text-muted leading-none">Realty</span>
+                </div>
             </a>
 
             <!-- Desktop Nav -->
-            <nav class="hidden md:flex items-center gap-8">
-                <a href="/listings"  class="text-sm font-medium text-gray-600 hover:text-brand transition-colors">Listings</a>
-                <a href="/roommates" class="text-sm font-medium text-gray-600 hover:text-brand transition-colors">Roommates</a>
+            <nav class="hidden md:flex items-center gap-1">
+                <a href="/listings"  class="nav-link px-4 py-2 text-sm font-medium text-gray-600 hover:text-brand hover:bg-surface-alt rounded-lg transition-all duration-150">Listings</a>
+                <a href="/roommates" class="nav-link px-4 py-2 text-sm font-medium text-gray-600 hover:text-brand hover:bg-surface-alt rounded-lg transition-all duration-150">Roommates</a>
             </nav>
 
             <!-- Desktop Auth -->
-            <div class="hidden md:flex items-center gap-3">
+            <div class="hidden md:flex items-center gap-2">
                 {% if frappe.session.user == "Guest" %}
-                <a href="/login"  class="btn-ghost text-sm py-1.5 px-4">Sign In</a>
-                <a href="/signup" class="btn text-sm py-1.5 px-4">Register</a>
+                <a href="/login"  class="btn-ghost text-sm py-2 px-4">Sign In</a>
+                <a href="/signup" class="btn text-sm py-2 px-4">Get Started</a>
                 {% else %}
-                <div x-data="{ open: false }" class="relative">
-                    <button @click="open = !open"
-                            class="flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-brand transition-colors py-1.5 px-3 rounded-btn hover:bg-surface-alt">
-                        <i data-lucide="circle-user-round" class="w-5 h-5"></i>
+                <!-- Account dropdown -->
+                <div class="relative" id="account-menu-wrapper">
+                    <button id="account-menu-btn"
+                            class="flex items-center gap-2 text-sm font-medium text-gray-700 hover:text-brand
+                                   py-2 px-3 rounded-lg hover:bg-surface-alt transition-all duration-150">
+                        <div class="w-7 h-7 bg-brand-light rounded-full flex items-center justify-center">
+                            <i data-lucide="user" class="w-3.5 h-3.5 text-brand"></i>
+                        </div>
                         <span>Account</span>
+                        <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-muted" id="account-chevron"></i>
                     </button>
-                    <div x-show="open" @click.outside="open = false" x-transition x-cloak
-                         class="absolute right-0 mt-2 py-1 bg-white shadow-lg rounded-card border border-border min-w-[150px]">
-                        <a href="/settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-surface-alt hover:text-brand">Settings</a>
-                        <a href="/logout"   class="block px-4 py-2 text-sm text-gray-700 hover:bg-surface-alt hover:text-brand">Logout</a>
+                    <div id="account-dropdown" class="nav-dropdown hidden">
+                        <a href="/settings">Settings</a>
+                        <div class="border-t border-border my-1"></div>
+                        <a href="/logout" class="text-danger! hover:text-danger! hover:bg-red-50!">Sign Out</a>
                     </div>
                 </div>
                 {% endif %}
             </div>
 
-            <!-- Mobile Menu -->
-            <div x-data="{ open: false }" class="md:hidden relative">
-                <button @click="open = !open" class="p-2 rounded-btn hover:bg-surface-alt transition-colors">
-                    <span x-show="!open"><i data-lucide="menu" class="w-6 h-6 text-brand"></i></span>
-                    <span x-show="open" x-cloak><i data-lucide="chevron-up" class="w-6 h-6 text-brand"></i></span>
-                </button>
-                <div x-show="open" @click.outside="open = false" x-transition x-cloak
-                     class="absolute right-0 mt-2 py-1 bg-white shadow-lg rounded-card border border-border min-w-[180px]">
-                    <a href="/listings"  class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-surface-alt hover:text-brand">Listings</a>
-                    <a href="/roommates" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-surface-alt hover:text-brand">Roommates</a>
-                    <div class="border-t border-border my-1"></div>
-                    {% if frappe.session.user == "Guest" %}
-                    <a href="/login"  class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-surface-alt hover:text-brand">Sign In</a>
-                    <a href="/signup" class="block px-4 py-2.5 text-sm text-brand font-medium hover:bg-brand-light">Register</a>
-                    {% else %}
-                    <a href="/settings" class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-surface-alt hover:text-brand">Settings</a>
-                    <a href="/logout"   class="block px-4 py-2.5 text-sm text-gray-700 hover:bg-surface-alt hover:text-brand">Logout</a>
-                    {% endif %}
-                </div>
-            </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-surface-alt transition-colors">
+                <i data-lucide="menu" class="w-5 h-5 text-brand" id="menu-icon-open"></i>
+                <i data-lucide="x"    class="w-5 h-5 text-brand hidden" id="menu-icon-close"></i>
+            </button>
 
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-surface shadow-lg">
+            <div class="container-page py-3 flex flex-col gap-0.5">
+                <a href="/listings"  class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand hover:bg-surface-alt rounded-lg transition-colors">Listings</a>
+                <a href="/roommates" class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand hover:bg-surface-alt rounded-lg transition-colors">Roommates</a>
+                <div class="border-t border-border my-1.5"></div>
+                {% if frappe.session.user == "Guest" %}
+                <a href="/login"  class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand hover:bg-surface-alt rounded-lg transition-colors">Sign In</a>
+                <a href="/signup" class="px-4 py-3 text-sm font-semibold text-brand hover:bg-brand-light rounded-lg transition-colors">Get Started →</a>
+                {% else %}
+                <a href="/settings" class="px-4 py-3 text-sm font-medium text-gray-700 hover:text-brand hover:bg-surface-alt rounded-lg transition-colors">Settings</a>
+                <a href="/logout"   class="px-4 py-3 text-sm font-medium text-danger hover:bg-red-50 rounded-lg transition-colors">Sign Out</a>
+                {% endif %}
+            </div>
         </div>
     </header>
 
-    <!-- Spacer for fixed header -->
+    <!-- Header spacer -->
     <div class="h-16"></div>
 
     <main class="flex-grow">
         {% block page_content %}{% endblock %}
     </main>
 
-    <!-- ── Footer ─────────────────────────────────────────── -->
-    <footer class="bg-white border-t border-border mt-auto">
-        <div class="container-page py-10">
-            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
-                <div class="max-w-xs">
-                    <div class="flex items-center gap-1 mb-2">
-                        <span class="font-bold text-brand">Urugano</span>
-                        <span class="font-light text-gray-500">Realty</span>
+    <!-- ── Footer ──────────────────────────────────────────────── -->
+    <footer style="background-color: oklch(22% 0.075 163);">
+        <div class="container-page py-14">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+
+                <!-- Brand -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center">
+                            <i data-lucide="home" class="w-4 h-4 text-white"></i>
+                        </div>
+                        <span class="text-white font-bold text-lg" style="font-family: var(--font-display)">Urugano Realty</span>
                     </div>
-                    <p class="text-xs text-muted leading-relaxed">
-                        Safe, verified housing for international students &amp; expats in Rwanda.
+                    <p class="text-sm leading-relaxed mb-4" style="color: rgba(255,255,255,0.65);">
+                        Rwanda's most trusted housing platform for international students and expats. Safe, verified, and convenient.
                     </p>
-                </div>
-                <div class="flex gap-12 text-sm">
-                    <div class="flex flex-col gap-2">
-                        <p class="font-semibold text-gray-700 mb-1">Explore</p>
-                        <a href="/listings"  class="text-muted hover:text-brand transition-colors">Listings</a>
-                        <a href="/roommates" class="text-muted hover:text-brand transition-colors">Roommates</a>
-                    </div>
-                    <div class="flex flex-col gap-2">
-                        <p class="font-semibold text-gray-700 mb-1">Account</p>
-                        <a href="/login"  class="text-muted hover:text-brand transition-colors">Sign In</a>
-                        <a href="/signup" class="text-muted hover:text-brand transition-colors">Register</a>
+                    <div class="flex items-center gap-1.5 text-xs font-medium" style="color: rgba(255,255,255,0.5);">
+                        <i data-lucide="map-pin" class="w-3.5 h-3.5"></i>
+                        <span>Kigali, Rwanda</span>
                     </div>
                 </div>
+
+                <!-- Explore -->
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-widest mb-4" style="color: rgba(255,255,255,0.45);">Explore</p>
+                    <div class="flex flex-col gap-2.5">
+                        <a href="/listings"  class="text-sm transition-colors duration-150" style="color: rgba(255,255,255,0.75);" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">Property Listings</a>
+                        <a href="/roommates" class="text-sm transition-colors duration-150" style="color: rgba(255,255,255,0.75);" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">Find a Roommate</a>
+                    </div>
+                </div>
+
+                <!-- Account -->
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-widest mb-4" style="color: rgba(255,255,255,0.45);">Account</p>
+                    <div class="flex flex-col gap-2.5">
+                        <a href="/login"  class="text-sm transition-colors duration-150" style="color: rgba(255,255,255,0.75);" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">Sign In</a>
+                        <a href="/signup" class="text-sm transition-colors duration-150" style="color: rgba(255,255,255,0.75);" onmouseover="this.style.color='white'" onmouseout="this.style.color='rgba(255,255,255,0.75)'">Create Account</a>
+                    </div>
+                </div>
+
             </div>
-            <div class="border-t border-border mt-8 pt-6 flex flex-col md:flex-row justify-between items-center gap-2">
-                <p class="text-xs text-muted">&copy; 2025 Urugano Realty. All rights reserved.</p>
-                <a href="#" class="text-xs text-muted hover:text-brand transition-colors">Privacy Policy</a>
+
+            <div class="border-t pt-6 flex flex-col sm:flex-row justify-between items-center gap-3" style="border-color: rgba(255,255,255,0.1);">
+                <p class="text-xs" style="color: rgba(255,255,255,0.4);">&copy; 2025 Urugano Realty. All rights reserved.</p>
+                <a href="#" class="text-xs transition-colors" style="color: rgba(255,255,255,0.4);" onmouseover="this.style.color='rgba(255,255,255,0.7)'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">Privacy Policy</a>
             </div>
         </div>
     </footer>
 
     {% block js_content %}{% endblock %}
-    <script>document.addEventListener('DOMContentLoaded', () => lucide.createIcons());</script>
+
+    <script>
+    /* ── Lucide icons ─────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', () => lucide.createIcons());
+
+    /* ── Scroll-aware header shadow ──────────────────────── */
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => {
+        header.classList.toggle('shadow-md', window.scrollY > 8);
+    }, { passive: true });
+
+    /* ── Mobile menu toggle ───────────────────────────────── */
+    const mobileMenuBtn  = document.getElementById('mobile-menu-btn');
+    const mobileMenu     = document.getElementById('mobile-menu');
+    const iconOpen       = document.getElementById('menu-icon-open');
+    const iconClose      = document.getElementById('menu-icon-close');
+
+    mobileMenuBtn && mobileMenuBtn.addEventListener('click', () => {
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden', isOpen);
+        iconOpen.classList.toggle('hidden', !isOpen);
+        iconClose.classList.toggle('hidden', isOpen);
+    });
+
+    /* ── Account dropdown ────────────────────────────────── */
+    const accountBtn      = document.getElementById('account-menu-btn');
+    const accountDropdown = document.getElementById('account-dropdown');
+    const accountChevron  = document.getElementById('account-chevron');
+
+    if (accountBtn && accountDropdown) {
+        accountBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isOpen = !accountDropdown.classList.contains('hidden');
+            accountDropdown.classList.toggle('hidden', isOpen);
+            accountChevron && accountChevron.style.setProperty('transform', isOpen ? '' : 'rotate(180deg)');
+        });
+        document.addEventListener('click', () => {
+            accountDropdown.classList.add('hidden');
+            accountChevron && accountChevron.style.removeProperty('transform');
+        });
+    }
+
+    /* ── Dialog system (global) ──────────────────────────── */
+    window.Urugano = {
+        openDialog(id) {
+            const el = document.getElementById('dialog-' + id);
+            if (!el) return;
+            el.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            requestAnimationFrame(() => {
+                const backdrop = el.querySelector('.dialog-backdrop');
+                const panel    = el.querySelector('.dialog-panel');
+                if (backdrop) backdrop.style.opacity = '1';
+                if (panel) { panel.style.opacity = '1'; panel.style.transform = 'scale(1)'; }
+            });
+        },
+        closeDialog(id) {
+            const el = document.getElementById('dialog-' + id);
+            if (!el) return;
+            const backdrop = el.querySelector('.dialog-backdrop');
+            const panel    = el.querySelector('.dialog-panel');
+            if (backdrop) backdrop.style.opacity = '0';
+            if (panel) { panel.style.opacity = '0'; panel.style.transform = 'scale(0.95)'; }
+            setTimeout(() => {
+                el.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 200);
+        }
+    };
+
+    /* Close dialogs on Escape */
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        document.querySelectorAll('[id^="dialog-"]').forEach(el => {
+            if (el.style.display === 'flex') {
+                Urugano.closeDialog(el.id.replace('dialog-', ''));
+            }
+        });
+    });
+    </script>
 </body>
 </html>

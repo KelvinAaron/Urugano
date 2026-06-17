@@ -63,7 +63,10 @@ website_route_rules = [
 
 # include js, css files in header of web template
 # web_include_css = "/assets/urugano/css/urugano.css"
-web_include_js = "/assets/urugano/js/csrf_setup.js"
+web_include_js = [
+    "/assets/urugano/js/csrf_setup.js",
+    "/assets/urugano/js/app.js"
+]
 
 # include custom scss in every website theme (without file extension ".scss")
 # website_theme_scss = "urugano/public/scss/website"

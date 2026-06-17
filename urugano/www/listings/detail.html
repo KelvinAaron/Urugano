@@ -1,108 +1,70 @@
-{% extends "urugano/templates/pages/web.html" %} {% from
-"urugano/templates/components/property_card.html" import property_card_compact
-with context %} {% from "urugano/templates/components/dialog.html" import
-dialog, dialog_trigger with context %} {% from
-"urugano/templates/components/amenity_icons.html" import property_amenities with
-context %} {% block title %}{{ doc.title }} — Urugano Realty{% endblock %} {%
-block page_content %}
+{% extends "urugano/templates/pages/web.html" %}
+{% from "urugano/templates/components/property_card.html" import property_card_compact with context %}
+{% from "urugano/templates/components/dialog.html" import dialog, dialog_trigger with context %}
+{% from "urugano/templates/components/amenity_icons.html" import property_amenities with context %}
+{% block title %}{{ doc.title }} — Urugano Realty{% endblock %}
 
-<!-- ── Property Gallery & Info ──────────────────────────────── -->
+{% block page_content %}
+
+<!-- ── Gallery + Core Info ────────────────────────────────────── -->
 <section class="section">
   <div class="container-page">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
       <!-- Gallery -->
       <div>
         <!-- Main image -->
-        <div
-          class="relative rounded-xl overflow-hidden cursor-pointer"
-          onclick="openLightbox(currentIndex)"
-        >
-          <img
-            id="main-image"
-            class="w-full h-[400px] object-cover"
-            src="{{ doc.image }}"
-            alt="{{ doc.title }}"
-          />
+        <div class="relative rounded-2xl overflow-hidden cursor-pointer shadow-lg"
+             onclick="openLightbox(currentIndex)">
+
+          <img id="main-image"
+               class="w-full object-cover"
+               style="height: 420px;"
+               src="{{ doc.image }}"
+               alt="{{ doc.title }}">
+
+          <!-- Gradient overlay -->
+          <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, transparent 50%);"></div>
 
           <!-- Expand button -->
-          <button
-            class="absolute top-4 right-4 bg-white text-gray-700 rounded-lg px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5 shadow-sm opacity-70 hover:opacity-100"
-            onclick="
-              event.stopPropagation();
-              openLightbox(currentIndex);
-            "
-          >
+          <button class="absolute top-4 right-4 glass border border-white/30 text-gray-700 rounded-lg px-3 py-1.5 text-xs font-semibold flex items-center gap-1.5 hover:bg-white transition-all"
+                  onclick="event.stopPropagation(); openLightbox(currentIndex);">
             <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i>
             Expand
           </button>
 
-          <!-- Prev arrow -->
-          <button
-            class="absolute top-1/2 -translate-y-1/2 w-9 h-9 bg-white rounded-lg flex items-center justify-center shadow-sm opacity-70 hover:opacity-100"
-            style="left: 0.75rem"
-            onclick="
-              event.stopPropagation();
-              prevImage();
-            "
-          >
+          <!-- Prev -->
+          <button class="absolute top-1/2 -translate-y-1/2 left-3 w-9 h-9 glass border border-white/30 rounded-lg flex items-center justify-center hover:bg-white transition-all"
+                  onclick="event.stopPropagation(); prevImage();">
             <i data-lucide="chevron-left" class="w-5 h-5 text-gray-700"></i>
           </button>
 
-          <!-- Next arrow -->
-          <button
-            class="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 bg-white rounded-lg flex items-center justify-center shadow-sm opacity-70 hover:opacity-100"
-            onclick="
-              event.stopPropagation();
-              nextImage();
-            "
-          >
+          <!-- Next -->
+          <button class="absolute top-1/2 -translate-y-1/2 right-3 w-9 h-9 glass border border-white/30 rounded-lg flex items-center justify-center hover:bg-white transition-all"
+                  onclick="event.stopPropagation(); nextImage();">
             <i data-lucide="chevron-right" class="w-5 h-5 text-gray-700"></i>
           </button>
 
-          <!-- Counter pill -->
-          <div
-            class="absolute left-1/2 -translate-x-1/2 bg-black/50 text-white text-xs font-medium px-3 py-1 rounded-pill select-none"
-            style="bottom: 0.75rem"
-          >
-            <span id="img-counter">1</span>&thinsp;/&thinsp;<span id="img-total"
-              >{{ (doc.gallery|length + 1) if doc.gallery else 1 }}</span
-            >
+          <!-- Counter -->
+          <div class="absolute left-1/2 -translate-x-1/2 bottom-3 bg-black/50 text-white text-xs font-medium px-3 py-1 rounded-full select-none">
+            <span id="img-counter">1</span>&thinsp;/&thinsp;<span id="img-total">{{ (doc.gallery|length + 1) if doc.gallery else 1 }}</span>
           </div>
         </div>
 
         <!-- Thumbnail strip -->
         {% if doc.gallery %}
         <div class="grid grid-cols-5 gap-2 mt-3">
-          <!-- Cover image thumb -->
-          <button
-            class="thumb-btn relative rounded-lg overflow-hidden border-2 border-brand cursor-pointer focus:outline-none"
-            onclick="setImage(0)"
-            data-index="0"
-          >
-            <img
-              class="w-full h-14 object-cover"
-              src="{{ doc.image }}"
-              alt="{{ doc.title }}"
-            />
+          <button class="thumb-btn relative rounded-xl overflow-hidden border-2 border-brand cursor-pointer focus:outline-none"
+                  onclick="setImage(0)" data-index="0">
+            <img class="w-full h-14 object-cover" src="{{ doc.image }}" alt="{{ doc.title }}">
           </button>
           {% for image in doc.gallery[:4] %}
-          <button
-            class="thumb-btn relative rounded-lg overflow-hidden border-2 border-transparent cursor-pointer focus:outline-none hover:border-brand transition-colors duration-150"
-            onclick="setImage({{ loop.index }})"
-            data-index="{{ loop.index }}"
-          >
-            <img
-              class="w-full h-14 object-cover"
-              src="{{ image.image }}"
-              alt="{{ image.label or '' }}"
-            />
+          <button class="thumb-btn relative rounded-xl overflow-hidden border-2 border-transparent cursor-pointer focus:outline-none hover:border-brand transition-colors duration-150"
+                  onclick="setImage({{ loop.index }})" data-index="{{ loop.index }}">
+            <img class="w-full h-14 object-cover" src="{{ image.image }}" alt="{{ image.label or '' }}">
             {% if loop.last and doc.gallery|length > 4 %}
-            <div
-              class="absolute inset-0 bg-black/50 flex items-center justify-center pointer-events-none"
-            >
-              <span class="text-white text-xs font-bold"
-                >+{{ doc.gallery|length - 4 }}</span
-              >
+            <div class="absolute inset-0 bg-black/50 flex items-center justify-center pointer-events-none">
+              <span class="text-white text-xs font-bold">+{{ doc.gallery|length - 4 }}</span>
             </div>
             {% endif %}
           </button>
@@ -112,13 +74,14 @@ block page_content %}
       </div>
 
       <!-- Property Info -->
-      <div class="flex flex-col gap-5">
-        <!-- Status Badges -->
+      <div class="flex flex-col gap-6">
+
+        <!-- Badges -->
         <div class="flex flex-wrap gap-2">
           <span class="badge-primary">For Rent</span>
           <span class="badge-secondary">{{ doc.property_type }}</span>
           {% if doc.furnished %}
-          <span class="badge-secondary">Furnished</span>
+          <span class="badge-accent">Furnished</span>
           {% else %}
           <span class="badge-muted">Unfurnished</span>
           {% endif %}
@@ -126,97 +89,84 @@ block page_content %}
 
         <!-- Title & Location -->
         <div>
-          <h1 class="text-2xl font-bold text-gray-800 leading-tight">
+          <h1 class="text-3xl font-bold text-gray-900 leading-tight mb-2" style="font-family: var(--font-display)">
             {{ doc.title }}
           </h1>
-          <p class="text-muted mt-1 text-sm">{{ doc.location }}</p>
+          <div class="flex items-center gap-1.5 text-sm text-muted">
+            <i data-lucide="map-pin" class="w-4 h-4 text-brand shrink-0"></i>
+            <span>{{ doc.location }}</span>
+          </div>
         </div>
 
         <!-- Stats Row -->
-        <div class="flex gap-8 py-5 border-y border-border">
+        <div class="flex gap-6 py-5 border-y border-border">
           <div class="flex items-center gap-3">
-            <div
-              class="w-10 h-10 bg-brand-light rounded-card flex items-center justify-center"
-            >
+            <div class="w-11 h-11 bg-brand-light rounded-xl flex items-center justify-center">
               <i data-lucide="bed" class="w-5 h-5 text-brand"></i>
             </div>
             <div>
-              <p class="font-bold text-gray-800">{{ doc.no_of_rooms }}</p>
-              <p class="text-xs text-muted">Bedrooms</p>
+              <p class="font-bold text-gray-800 text-lg leading-none">{{ doc.no_of_rooms }}</p>
+              <p class="text-xs text-muted mt-0.5">Bedrooms</p>
             </div>
           </div>
           <div class="flex items-center gap-3">
-            <div
-              class="w-10 h-10 bg-brand-light rounded-card flex items-center justify-center"
-            >
+            <div class="w-11 h-11 bg-brand-light rounded-xl flex items-center justify-center">
               <i data-lucide="bath" class="w-5 h-5 text-brand"></i>
             </div>
             <div>
-              <p class="font-bold text-gray-800">{{ doc.bathrooms }}</p>
-              <p class="text-xs text-muted">Bathrooms</p>
+              <p class="font-bold text-gray-800 text-lg leading-none">{{ doc.bathrooms }}</p>
+              <p class="text-xs text-muted mt-0.5">Bathrooms</p>
             </div>
           </div>
         </div>
 
         <!-- Price -->
-        <div>
-          <p
-            class="text-xs font-semibold text-muted uppercase tracking-wide mb-1"
-          >
-            Monthly Rent
-          </p>
-          <p class="text-3xl font-bold text-brand">
-            {{ frappe.format_value(doc.price, {'fieldtype': 'Currency',
-            'options': 'RWF'}) }}
+        <div class="card p-5" style="border-color: oklch(94% 0.04 163); background-color: oklch(97.5% 0.02 163);">
+          <p class="text-xs font-semibold uppercase tracking-widest text-muted mb-1">Monthly Rent</p>
+          <p class="text-4xl font-bold text-brand" style="font-family: var(--font-display)">
+            {{ frappe.format_value(doc.price, {'fieldtype': 'Currency', 'options': 'RWF'}) }}
           </p>
           <p class="text-xs text-muted mt-1">Price is negotiable</p>
         </div>
 
         <!-- Amenities -->
+        {% if doc %}
         <div>
-          <p
-            class="text-xs font-semibold text-muted uppercase tracking-wide mb-3"
-          >
-            Amenities
-          </p>
+          <p class="text-xs font-semibold uppercase tracking-widest text-muted mb-3">Amenities</p>
           {{ property_amenities(doc) }}
         </div>
+        {% endif %}
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- ── Description, Contact & Similar ───────────────────────── -->
+<!-- ── Description, Contact & Similar ────────────────────────── -->
 <section class="section-alt">
   <div class="container-page">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
       <!-- Left: Description + Contact + Map -->
       <div class="lg:col-span-2 flex flex-col gap-6">
+
         {% if doc.description %}
-        <div class="card card-body">
-          <h2 class="font-semibold text-lg mb-3">About this Property</h2>
-          <p class="text-gray-600 leading-relaxed text-sm">
-            {{ doc.description }}
-          </p>
+        <div class="card p-6">
+          <h2 class="font-semibold text-xl mb-3" style="font-family: var(--font-display)">About this Property</h2>
+          <p class="text-gray-600 leading-relaxed text-sm">{{ doc.description }}</p>
         </div>
         {% endif %}
 
-        <div class="card card-body">
-          <h2 class="font-semibold text-lg mb-4">Contact Landlord</h2>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-              <div
-                class="w-10 h-10 bg-brand-light rounded-pill flex items-center justify-center shrink-0"
-              >
-                <i
-                  data-lucide="circle-user-round"
-                  class="w-5 h-5 text-brand"
-                ></i>
-              </div>
-              <div>
-                <p class="font-semibold text-gray-800">{{ landlord.name1 }}</p>
-                <p class="text-sm text-muted">{{ landlord.phone }}</p>
-              </div>
+        <div class="card p-6">
+          <h2 class="font-semibold text-xl mb-4" style="font-family: var(--font-display)">Contact Landlord</h2>
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-white font-bold text-lg"
+                 style="background: linear-gradient(135deg, oklch(35% 0.115 163) 0%, oklch(52% 0.12 163) 100%);">
+                {{ landlord.name1[0] | upper if landlord.name1 else '?' }}
+            </div>
+            <div>
+              <p class="font-semibold text-gray-800">{{ landlord.name1 }}</p>
+              <p class="text-sm text-muted">{{ landlord.phone }}</p>
             </div>
           </div>
         </div>
@@ -224,161 +174,134 @@ block page_content %}
         <div class="card overflow-hidden">
           <iframe
             width="100%"
-            height="320"
-            style="border: 0"
+            height="300"
+            style="border:0; display:block;"
             loading="lazy"
             allowfullscreen
             referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps?q={{ location.latitude }},{{ location.longitude }}&hl=es;z=14&output=embed"
-          >
+            src="https://www.google.com/maps?q={{ location.latitude }},{{ location.longitude }}&hl=es;z=14&output=embed">
           </iframe>
         </div>
+
       </div>
 
       <!-- Right: Similar Properties -->
       <div>
-        <h2 class="font-semibold text-lg mb-4">Similar Properties</h2>
-        <div class="flex flex-col gap-4">
-          {% for property in properties %} {% if property.name != doc.name %} {%
-          if property.price <= doc.price + 50000 and property.price >= doc.price
-          - 50000 %} {{ property_card_compact(property) }} {% endif %} {% endif
-          %} {% endfor %}
+        <h2 class="font-semibold text-xl mb-4" style="font-family: var(--font-display)">Similar Properties</h2>
+        <div class="flex flex-col gap-2">
+          {% for property in properties %}
+            {% if property.name != doc.name %}
+              {% if property.price <= doc.price + 50000 and property.price >= doc.price - 50000 %}
+                {{ property_card_compact(property) }}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
+
     </div>
   </div>
 </section>
 
-{# ── Lightbox ─────────────────────────────────────────────────── #}
-<div
-  id="lightbox"
-  class="fixed inset-0 z-[200] bg-black/50 hidden items-center justify-center"
-  onclick="closeLightbox()"
->
-  <!-- Close -->
-  <button
-    class="absolute top-4 right-4 w-10 h-10 bg-white text-gray-700 rounded-lg flex items-center justify-center shadow-md z-[201]"
-    onclick="
-      event.stopPropagation();
-      closeLightbox();
-    "
-  >
+<!-- ── Lightbox ────────────────────────────────────────────────── -->
+<div id="lightbox"
+     class="fixed inset-0 z-[200] bg-black/80 hidden items-center justify-center"
+     onclick="closeLightbox()">
+
+  <button class="absolute top-4 right-4 w-10 h-10 bg-white/10 hover:bg-white/20 text-white rounded-xl flex items-center justify-center transition-colors z-[201]"
+          onclick="event.stopPropagation(); closeLightbox();">
     <i data-lucide="x" class="w-5 h-5"></i>
   </button>
 
-  <!-- Counter -->
-  <div
-    class="absolute top-4 left-1/2 -translate-x-1/2 text-white text-sm font-medium select-none z-[201]"
-  >
+  <div class="absolute top-4 left-1/2 -translate-x-1/2 text-white text-sm font-medium select-none z-[201]">
     <span id="lb-counter">1</span>&thinsp;/&thinsp;<span id="lb-total">1</span>
   </div>
 
-  <!-- Prev -->
-  <button
-    class="absolute top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-gray-700 rounded-xl flex items-center justify-center shadow-md z-[201]"
-    style="left: 1rem"
-    onclick="
-      event.stopPropagation();
-      lbPrev();
-    "
-  >
+  <button class="absolute top-1/2 -translate-y-1/2 left-4 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-xl flex items-center justify-center transition-colors z-[201]"
+          onclick="event.stopPropagation(); lbPrev();">
     <i data-lucide="chevron-left" class="w-6 h-6"></i>
   </button>
 
-  <!-- Image (stopPropagation so clicking it doesn't close) -->
-  <img
-    id="lb-image"
-    class="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl select-none z-[201] relative"
-    src=""
-    alt=""
-    onclick="event.stopPropagation()"
-  />
+  <img id="lb-image"
+       class="max-w-full max-h-[85vh] object-contain rounded-xl shadow-2xl select-none z-[201] relative"
+       src="" alt=""
+       onclick="event.stopPropagation()">
 
-  <!-- Next -->
-  <button
-    class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-gray-700 rounded-xl flex items-center justify-center shadow-md z-[201]"
-    onclick="
-      event.stopPropagation();
-      lbNext();
-    "
-  >
+  <button class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white/10 hover:bg-white/20 text-white rounded-xl flex items-center justify-center transition-colors z-[201]"
+          onclick="event.stopPropagation(); lbNext();">
     <i data-lucide="chevron-right" class="w-6 h-6"></i>
   </button>
 
-  <!-- Caption -->
-  <p
-    class="absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-sm text-center max-w-sm truncate opacity-70 z-[201]"
-    id="lb-caption"
-  ></p>
+  <p class="absolute bottom-5 left-1/2 -translate-x-1/2 text-white text-sm text-center max-w-sm truncate opacity-60 z-[201]"
+     id="lb-caption"></p>
 </div>
 
-{% endblock %} {% block js_content %}
+{% endblock %}
+
+{% block js_content %}
 <script>
   const allImages = [
-      { src: "{{ doc.image | e }}", alt: "{{ doc.title | e }}" },
-      {% if doc.gallery %}
-      {% for image in doc.gallery %}
-      { src: "{{ image.image | e }}", alt: "{{ (image.label or doc.title) | e }}" },
-      {% endfor %}
-      {% endif %}
+    { src: "{{ doc.image | e }}", alt: "{{ doc.title | e }}" },
+    {% if doc.gallery %}
+    {% for image in doc.gallery %}
+    { src: "{{ image.image | e }}", alt: "{{ (image.label or doc.title) | e }}" },
+    {% endfor %}
+    {% endif %}
   ];
 
   let currentIndex = 0;
   const totalImages = allImages.length;
 
   function updateMainImage(index) {
-      currentIndex = index;
-      const mainImg = document.getElementById('main-image');
-      mainImg.src = allImages[index].src;
-      mainImg.alt = allImages[index].alt;
-      document.getElementById('img-counter').textContent = index + 1;
-
-      document.querySelectorAll('.thumb-btn').forEach((btn, i) => {
-          const active = i === index;
-          btn.classList.toggle('border-brand', active);
-          btn.classList.toggle('border-transparent', !active);
-      });
+    currentIndex = index;
+    document.getElementById('main-image').src = allImages[index].src;
+    document.getElementById('main-image').alt = allImages[index].alt;
+    document.getElementById('img-counter').textContent = index + 1;
+    document.querySelectorAll('.thumb-btn').forEach((btn, i) => {
+      btn.classList.toggle('border-brand', i === index);
+      btn.classList.toggle('border-transparent', i !== index);
+    });
   }
 
-  function setImage(index) { updateMainImage(index); }
-  function prevImage() { updateMainImage((currentIndex - 1 + totalImages) % totalImages); }
-  function nextImage() { updateMainImage((currentIndex + 1) % totalImages); }
+  function setImage(i)  { updateMainImage(i); }
+  function prevImage()  { updateMainImage((currentIndex - 1 + totalImages) % totalImages); }
+  function nextImage()  { updateMainImage((currentIndex + 1) % totalImages); }
 
   // Lightbox
   let lbIndex = 0;
   const lightbox = document.getElementById('lightbox');
 
   function openLightbox(index) {
-      lbIndex = index;
-      lightbox.classList.remove('hidden');
-      lightbox.classList.add('flex');
-      document.body.style.overflow = 'hidden';
-      updateLightbox();
+    lbIndex = index;
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+    updateLightbox();
   }
 
   function closeLightbox() {
-      lightbox.classList.add('hidden');
-      lightbox.classList.remove('flex');
-      document.body.style.overflow = '';
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
   }
 
   function updateLightbox() {
-      const img = allImages[lbIndex];
-      document.getElementById('lb-image').src = img.src;
-      document.getElementById('lb-image').alt = img.alt;
-      document.getElementById('lb-counter').textContent = lbIndex + 1;
-      document.getElementById('lb-total').textContent = totalImages;
-      document.getElementById('lb-caption').textContent = img.alt;
+    const img = allImages[lbIndex];
+    document.getElementById('lb-image').src   = img.src;
+    document.getElementById('lb-image').alt   = img.alt;
+    document.getElementById('lb-counter').textContent = lbIndex + 1;
+    document.getElementById('lb-total').textContent   = totalImages;
+    document.getElementById('lb-caption').textContent = img.alt;
   }
 
   function lbPrev() { lbIndex = (lbIndex - 1 + totalImages) % totalImages; updateLightbox(); }
   function lbNext() { lbIndex = (lbIndex + 1) % totalImages; updateLightbox(); }
 
   document.addEventListener('keydown', e => {
-      if (lightbox.classList.contains('hidden')) return;
-      if (e.key === 'ArrowLeft')  lbPrev();
-      if (e.key === 'ArrowRight') lbNext();
-      if (e.key === 'Escape')     closeLightbox();
+    if (lightbox.classList.contains('hidden')) return;
+    if (e.key === 'ArrowLeft')  lbPrev();
+    if (e.key === 'ArrowRight') lbNext();
+    if (e.key === 'Escape')     closeLightbox();
   });
 </script>
 {% endblock %}

@@ -5,34 +5,76 @@
 
 {% block page_content %}
 
-<!-- ── Hero ──────────────────────────────────────────────────── -->
-<section style="background: linear-gradient(135deg, oklch(37.9% 0.146 265.522) 0%, oklch(54.6% 0.245 262.881) 55%, oklch(62.3% 0.214 259.815) 100%);">
-    <div class="container-page py-28 text-center text-white">
-        <span class="badge-secondary text-xs mb-6 inline-block">Kigali, Rwanda</span>
-        <h1 class="text-5xl font-bold leading-tight mb-4">Find Your Perfect Home<br>in Rwanda</h1>
-        <p class="text-lg mb-10 max-w-xl mx-auto" style="color: rgba(255,255,255,0.8);">
+<!-- ── Hero ───────────────────────────────────────────────────── -->
+<section style="background: linear-gradient(160deg, oklch(22% 0.075 163) 0%, oklch(32% 0.11 163) 55%, oklch(40% 0.12 165) 100%); min-height: 540px;" class="flex items-center relative overflow-hidden">
+
+    <!-- Decorative circles -->
+    <div class="absolute top-0 right-0 w-96 h-96 rounded-full opacity-5" style="background: radial-gradient(circle, white, transparent); transform: translate(30%, -30%);"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-5" style="background: radial-gradient(circle, oklch(73% 0.17 68), transparent); transform: translate(-30%, 30%);"></div>
+
+    <div class="container-page py-24 text-center relative">
+
+
+        <h1 class="text-5xl sm:text-6xl font-bold text-white mb-5 text-balance" style="font-family: var(--font-display); line-height: 1.1; letter-spacing: -0.02em;">
+            Find Your Perfect<br>Home in Rwanda
+        </h1>
+
+        <p class="text-lg mb-10 max-w-lg mx-auto leading-relaxed" style="color: rgba(255,255,255,0.72);">
             Tailored for international students and expats. Safe, verified, and convenient housing across Kigali.
         </p>
-        <a href="/listings" class="inline-block bg-white text-brand font-semibold px-8 py-3 rounded-btn hover:bg-brand-light transition-colors duration-300 text-sm">
-            Browse All Listings
-        </a>
+
+        <div class="flex flex-wrap items-center justify-center gap-3">
+            <a href="/listings"
+               class="inline-flex items-center gap-2 font-semibold px-7 py-3 rounded-lg text-sm transition-all duration-200 shadow-lg active:scale-[0.98]"
+               style="background-color: oklch(73% 0.17 68); color: white;">
+                <i data-lucide="search" class="w-4 h-4"></i>
+                Browse Listings
+            </a>
+            <a href="/roommates"
+               class="inline-flex items-center gap-2 font-semibold px-7 py-3 rounded-lg text-sm border border-white/30 text-white hover:bg-white/10 transition-all duration-200">
+                <i data-lucide="users" class="w-4 h-4"></i>
+                Find a Roommate
+            </a>
+        </div>
+
+        <!-- Trust signals -->
+        <div class="flex flex-wrap justify-center gap-6 mt-14 text-xs" style="color: rgba(255,255,255,0.55);">
+            <div class="flex items-center gap-1.5">
+                <i data-lucide="shield-check" class="w-3.5 h-3.5" style="color: oklch(73% 0.17 68)"></i>
+                Verified Landlords
+            </div>
+            <div class="flex items-center gap-1.5">
+                <i data-lucide="star" class="w-3.5 h-3.5" style="color: oklch(73% 0.17 68)"></i>
+                Expat-Friendly
+            </div>
+            <div class="flex items-center gap-1.5">
+                <i data-lucide="lock" class="w-3.5 h-3.5" style="color: oklch(73% 0.17 68)"></i>
+                Secure Platform
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- ── Quick Search ───────────────────────────────────────────── -->
-<section class="bg-white shadow-sm border-b border-border">
+<!-- ── Quick Search ────────────────────────────────────────────── -->
+<section class="bg-surface border-b border-border shadow-sm">
     <div class="container-page py-6">
         {{ search_form(action="/listings") }}
     </div>
 </section>
 
-<!-- ── Featured Listings ─────────────────────────────────────── -->
+<!-- ── Featured Listings ──────────────────────────────────────── -->
 {% if features|length > 0 %}
 <section class="section">
     <div class="container-page">
-        <div class="flex items-center justify-between mb-6">
-            <h2 class="section-title mb-0">Featured Listings</h2>
-            <a href="/listings" class="text-sm text-brand font-medium hover:underline">View all →</a>
+        <div class="flex items-end justify-between mb-8">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-widest text-accent mb-1">Handpicked For You</p>
+                <h2 class="section-title mb-0">Featured Properties</h2>
+            </div>
+            <a href="/listings" class="text-sm font-medium text-brand hover:text-brand-hover inline-flex items-center gap-1 transition-colors">
+                View all
+                <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -44,60 +86,78 @@
 </section>
 {% endif %}
 
-<!-- ── Why Urugano ────────────────────────────────────────────── -->
+<!-- ── Why Urugano ─────────────────────────────────────────────── -->
 <section class="section-alt">
     <div class="container-page">
-        <h2 class="section-title text-center">Why Urugano Realty?</h2>
-        <p class="text-center text-muted text-sm mb-12 max-w-md mx-auto">
-            We help international students and expats find safe, comfortable housing without the hassle.
-        </p>
+        <div class="text-center mb-12">
+            <p class="text-xs font-semibold uppercase tracking-widest text-accent mb-1">Why Choose Us</p>
+            <h2 class="section-title mb-3">Built for Internationals</h2>
+            <p class="text-muted text-sm max-w-md mx-auto">
+                We bridge the gap between foreign visitors and trusted local housing in Rwanda.
+            </p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="card card-body text-center p-8">
-                <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center mx-auto mb-4">
-                    <i data-lucide="shield" class="w-6 h-6 text-brand"></i>
+
+            <div class="card p-8 text-center group hover:border-brand transition-colors duration-200">
+                <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5 transition-colors duration-200"
+                     style="background-color: oklch(94% 0.04 163);">
+                    <i data-lucide="shield-check" class="w-7 h-7 text-brand"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800 mb-2">Verified Listings</h3>
+                <h3 class="font-semibold text-gray-800 mb-2 text-lg" style="font-family: var(--font-display)">Verified Listings</h3>
                 <p class="text-sm text-muted leading-relaxed">
                     Only trusted landlords and properties approved for international residents.
                 </p>
             </div>
-            <div class="card card-body text-center p-8">
-                <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center mx-auto mb-4">
-                    <i data-lucide="house-wifi" class="w-6 h-6 text-brand"></i>
+
+            <div class="card p-8 text-center group hover:border-brand transition-colors duration-200">
+                <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5"
+                     style="background-color: oklch(97% 0.04 68);">
+                    <i data-lucide="users" class="w-7 h-7" style="color: oklch(55% 0.16 68)"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800 mb-2">Roommate Finder</h3>
+                <h3 class="font-semibold text-gray-800 mb-2 text-lg" style="font-family: var(--font-display)">Roommate Finder</h3>
                 <p class="text-sm text-muted leading-relaxed">
                     Connect with fellow students and professionals to share accommodation.
                 </p>
             </div>
-            <div class="card card-body text-center p-8">
-                <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center mx-auto mb-4">
-                    <i data-lucide="square-parking" class="w-6 h-6 text-brand"></i>
+
+            <div class="card p-8 text-center group hover:border-brand transition-colors duration-200">
+                <div class="w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-5"
+                     style="background-color: oklch(94% 0.04 163);">
+                    <i data-lucide="globe" class="w-7 h-7 text-brand"></i>
                 </div>
-                <h3 class="font-semibold text-gray-800 mb-2">Multi-Currency</h3>
+                <h3 class="font-semibold text-gray-800 mb-2 text-lg" style="font-family: var(--font-display)">Multi-Currency</h3>
                 <p class="text-sm text-muted leading-relaxed">
-                    We support RWF and USD, with both English and French interfaces.
+                    We support RWF and USD, with English and French interfaces.
                 </p>
             </div>
+
         </div>
     </div>
 </section>
 
 <!-- ── CTA Banner ─────────────────────────────────────────────── -->
-<section class="section bg-brand">
-    <div class="container-page text-center text-white">
-        <h2 class="text-3xl font-bold mb-3">Ready to find your home?</h2>
-        <p class="mb-8 text-sm" style="color: rgba(255,255,255,0.8);">Join hundreds of students and expats who found their perfect place through Urugano Realty.</p>
-        <div class="flex gap-4 justify-center flex-wrap">
-            <a href="/listings" class="inline-block bg-white text-brand font-semibold px-8 py-3 rounded-btn hover:bg-brand-light transition-colors text-sm">
+<section style="background: linear-gradient(135deg, oklch(28% 0.095 163) 0%, oklch(35% 0.115 163) 100%);" class="py-20">
+    <div class="container-page text-center">
+        <p class="text-xs font-semibold uppercase tracking-widest mb-3" style="color: oklch(73% 0.17 68)">Ready?</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4 text-balance" style="font-family: var(--font-display)">
+            Start your home search today
+        </h2>
+        <p class="text-sm mb-10 max-w-sm mx-auto" style="color: rgba(255,255,255,0.65);">
+            Join hundreds of students and expats who found their perfect place through Urugano Realty.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+            <a href="/listings"
+               class="inline-flex items-center gap-2 font-semibold px-8 py-3 rounded-lg text-sm shadow-lg active:scale-[0.98] transition-all duration-200"
+               style="background-color: oklch(73% 0.17 68); color: white;">
                 Browse Listings
             </a>
-            <a href="/signup" class="inline-block border border-white text-white font-semibold px-8 py-3 rounded-btn hover:bg-white hover:text-brand transition-colors text-sm">
-                Create Account
+            <a href="/signup"
+               class="inline-flex items-center gap-2 border border-white/30 text-white font-semibold px-8 py-3 rounded-lg text-sm hover:bg-white/10 transition-all duration-200">
+                Create Free Account
             </a>
         </div>
     </div>
 </section>
 
 {% endblock %}
-

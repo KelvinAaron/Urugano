@@ -1,36 +1,44 @@
 {% extends "urugano/templates/pages/web.html" %}
-{% block title %}Roommate Application — Urugano Realty{% endblock %}
+{% block title %}Post Roommate Profile — Urugano Realty{% endblock %}
 
 {% block page_content %}
-<section class="section">
-    <div class="container-page max-w-2xl">
+<section class="section-alt">
+    <div class="container-page" style="max-width: 44rem;">
 
         <!-- Header -->
         <div class="mb-8">
-            <a href="/roommates" class="text-sm text-muted hover:text-brand transition-colors mb-4 inline-block">← Back to roommates</a>
-            <h1 class="text-2xl font-bold text-gray-800">Post Your Roommate Profile</h1>
-            <p class="text-sm text-muted mt-1">Tell potential roommates about yourself and what you're looking for.</p>
+            <a href="/roommates" class="inline-flex items-center gap-1.5 text-sm text-muted hover:text-brand transition-colors mb-5">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Back to roommates
+            </a>
+            <p class="text-xs font-semibold uppercase tracking-widest text-accent mb-1">Community</p>
+            <h1 class="text-3xl font-bold text-gray-900 mb-1.5" style="font-family: var(--font-display)">Post Your Roommate Profile</h1>
+            <p class="text-sm text-muted">Tell potential roommates about yourself and what you're looking for.</p>
         </div>
 
         <!-- Form Card -->
-        <div id="roommate-form-card" class="card card-body p-8">
+        <div id="roommate-form-card" class="card p-8">
             <form id="roommate-form" class="flex flex-col gap-6">
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
                     <!-- Left Column -->
                     <div class="flex flex-col gap-5">
                         <div class="form-group">
                             <label class="label">Full Name</label>
-                            <input type="text" name="name" class="input" placeholder="Your name">
+                            <input type="text" name="name" class="input" placeholder="Your full name">
                         </div>
                         <div class="form-group">
-                            <label class="label">Gender <span class="text-danger">*</span></label>
-                            <select name="gender" required class="select">
-                                <option value="">Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
+                            <label class="label">Gender <span class="text-danger normal-case font-normal">*</span></label>
+                            <div class="relative">
+                                <select name="gender" required class="select pr-8">
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-muted absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="label">Age</label>
@@ -46,11 +54,14 @@
                     <div class="flex flex-col gap-5">
                         <div class="form-group">
                             <label class="label">Preferred Roommate Gender</label>
-                            <select name="roommate" class="select">
-                                <option value="">Select Preference</option>
-                                <option value="Same gender">Same Gender</option>
-                                <option value="Any">Any</option>
-                            </select>
+                            <div class="relative">
+                                <select name="roommate" class="select pr-8">
+                                    <option value="">Select Preference</option>
+                                    <option value="Same gender">Same Gender</option>
+                                    <option value="Any">Any</option>
+                                </select>
+                                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-muted absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="label">Minimum Budget (RWF)</label>
@@ -69,30 +80,35 @@
 
                 <!-- Notes -->
                 <div class="form-group">
-                    <label class="label">Additional Notes</label>
-                    <textarea name="notes" rows="4" class="textarea" placeholder="Tell potential roommates a bit about yourself, your lifestyle, habits…"></textarea>
+                    <label class="label">About You</label>
+                    <textarea name="notes" rows="4" class="textarea"
+                              placeholder="Tell potential roommates about your lifestyle, habits, schedule, and what you're looking for in a home…"></textarea>
                 </div>
 
                 <!-- Actions -->
-                <div class="flex justify-end gap-3 pt-2">
+                <div class="flex justify-end gap-3 pt-2 border-t border-border">
                     <a href="/roommates" class="btn-ghost">Discard</a>
-                    <button type="submit" class="btn px-8">Submit Profile</button>
+                    <button type="submit" class="btn px-8">
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                        Submit Profile
+                    </button>
                 </div>
 
             </form>
         </div>
 
         <!-- Success State -->
-        <div id="success-modal" class="hidden card card-body p-16 text-center">
-            <div class="flex flex-col items-center gap-4">
-                <div class="w-16 h-16 bg-brand-light rounded-pill flex items-center justify-center">
-                    <i data-lucide="circle-check" class="w-8 h-8 text-brand"></i>
+        <div id="success-modal" class="hidden card p-16 text-center">
+            <div class="flex flex-col items-center gap-5">
+                <div class="w-20 h-20 rounded-2xl flex items-center justify-center"
+                     style="background-color: oklch(94% 0.04 163);">
+                    <i data-lucide="circle-check" class="w-10 h-10 text-brand"></i>
                 </div>
                 <div>
-                    <h2 class="text-2xl font-bold text-brand">Profile Submitted!</h2>
-                    <p class="text-sm text-muted mt-1">Your roommate profile is now live.</p>
+                    <h2 class="text-2xl font-bold text-brand mb-1" style="font-family: var(--font-display)">Profile Submitted!</h2>
+                    <p class="text-sm text-muted">Your roommate profile is now live and visible to others.</p>
                 </div>
-                <div class="flex gap-3 mt-4">
+                <div class="flex gap-3 mt-2">
                     <button id="close-modal" class="btn-outline" type="button">Submit Another</button>
                     <a href="/roommates" class="btn">Browse Roommates</a>
                 </div>
@@ -103,26 +119,35 @@
 </section>
 
 <script defer>
-    document.querySelector('form').addEventListener('submit', function(e) {
+    document.getElementById('roommate-form').addEventListener('submit', async function(e) {
         e.preventDefault();
         const form = document.getElementById('roommate-form');
-        const formData = new FormData(form);
-        const data = Object.fromEntries(formData.entries());
+        const data = Object.fromEntries(new FormData(form).entries());
 
-        frappe.call({
-            method: 'urugano.api.roommates.apply_roommate',
-            args: data,
-            callback(r) {
-                form.reset();
-                document.getElementById('success-modal').classList.remove('hidden');
-                document.getElementById('roommate-form-card').classList.add('hidden');
-                lucide.createIcons();
-            }
-        });
+        const btn = form.querySelector('[type="submit"]');
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Submitting…';
+        lucide.createIcons();
+
+        try {
+            const res = await fetch('/api/method/urugano.api.roommates.apply_roommate', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+            if (!res.ok) throw new Error('Submission failed');
+            form.reset();
+            document.getElementById('success-modal').classList.remove('hidden');
+            document.getElementById('roommate-form-card').classList.add('hidden');
+            lucide.createIcons();
+        } catch {
+            btn.disabled = false;
+            btn.innerHTML = '<i data-lucide="send" class="w-4 h-4"></i> Submit Profile';
+            lucide.createIcons();
+        }
     });
 
-    document.getElementById('close-modal').addEventListener('click', function(event) {
-        event.preventDefault();
+    document.getElementById('close-modal').addEventListener('click', function() {
         document.getElementById('success-modal').classList.add('hidden');
         document.getElementById('roommate-form-card').classList.remove('hidden');
     });

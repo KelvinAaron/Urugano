@@ -4,32 +4,69 @@
 
 {% block page_content %}
 
-<!-- ── Filter Bar ─────────────────────────────────────────────── -->
-<section class="bg-white border-b border-border">
-    <div class="container-page py-6">
-        <div class="flex items-center justify-between mb-4">
-            <h1 class="text-xl font-semibold">Find Your Roommate</h1>
-            <a href="/roommates/apply" class="btn text-sm">Post Your Profile</a>
+<!-- ── Page Header ─────────────────────────────────────────────── -->
+<section class="bg-surface border-b border-border">
+    <div class="container-page py-8">
+        <div class="flex items-end justify-between mb-6">
+            <div>
+                <p class="text-xs font-semibold uppercase tracking-widest text-accent mb-1">Community</p>
+                <h1 class="text-2xl font-bold text-gray-900" style="font-family: var(--font-display)">Find Your Roommate</h1>
+            </div>
+            <a href="/roommates/apply" class="btn text-sm">
+                <i data-lucide="plus" class="w-4 h-4"></i>
+                Post Your Profile
+            </a>
         </div>
-        <form class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 items-end">
-            <input name="location" type="text" placeholder="Preferred location" class="input lg:col-span-2">
-            <input name="min_budget" type="number" min="0" placeholder="Min budget (RWF)" class="input">
-            <input name="max_budget" type="number" min="0" placeholder="Max budget (RWF)" class="input">
-            <input name="move_in" type="date" placeholder="Move-in date" class="input">
-            <select name="gender" class="select">
-                <option value="" disabled selected>Gender</option>
-                <option>Male</option>
-                <option>Female</option>
-                <option>Other</option>
-            </select>
-            <button id="search-button" type="submit" class="btn w-full">Apply Filters</button>
-        </form>
+
+        <!-- Filters -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 items-end">
+            <div class="lg:col-span-2">
+                <label class="label">
+                    <span class="inline-flex items-center gap-1">
+                        <i data-lucide="map-pin" class="w-3 h-3 text-brand"></i>
+                        Preferred Location
+                    </span>
+                </label>
+                <input name="location" type="text" placeholder="e.g. Kicukiro, Kimisagara" class="input">
+            </div>
+            <div>
+                <label class="label">Min Budget (RWF)</label>
+                <input name="min_budget" type="number" min="0" placeholder="0" class="input">
+            </div>
+            <div>
+                <label class="label">Max Budget (RWF)</label>
+                <input name="max_budget" type="number" min="0" placeholder="No limit" class="input">
+            </div>
+            <div>
+                <label class="label">Move-in Date</label>
+                <input name="move_in" type="date" class="input">
+            </div>
+            <div>
+                <label class="label">Gender</label>
+                <div class="relative">
+                    <select name="gender" class="select pr-8">
+                        <option value="">Any</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                    <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-muted absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+                </div>
+            </div>
+            <div class="lg:col-span-6 flex justify-end">
+                <button id="search-button" type="button" class="btn">
+                    <i data-lucide="search" class="w-4 h-4"></i>
+                    Apply Filters
+                </button>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- ── Roommate Cards ─────────────────────────────────────────── -->
+<!-- ── Roommate Cards ──────────────────────────────────────────── -->
 <section class="section-alt">
     <div class="container-page">
+
         <div id="property-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {% for roommate in roommates %}
             {{ roommate_card(roommate) }}
@@ -37,14 +74,18 @@
         </div>
 
         {% if not roommates %}
-        <div class="text-center py-20 text-muted">
-            <p class="text-lg font-medium">No roommate profiles found</p>
-            <p class="text-sm mt-1">
+        <div class="text-center py-24">
+            <div class="w-16 h-16 bg-brand-light rounded-2xl flex items-center justify-center mx-auto mb-5">
+                <i data-lucide="users" class="w-8 h-8 text-brand"></i>
+            </div>
+            <h2 class="text-xl font-semibold text-gray-800 mb-2" style="font-family: var(--font-display)">No roommate profiles yet</h2>
+            <p class="text-sm text-muted mb-6">
                 Be the first —
-                <a href="/roommates/apply" class="text-brand font-medium hover:underline">post your profile</a>
+                <a href="/roommates/apply" class="text-brand font-semibold hover:underline">post your profile</a>
             </p>
         </div>
         {% endif %}
+
     </div>
 </section>
 
@@ -52,68 +93,85 @@
 
 {% block js_content %}
 <script defer>
-    document.getElementById('search-button').addEventListener('click', async function (e) {
-        e.preventDefault();
-
-        const location = document.querySelector('input[name="location"]').value;
+    document.getElementById('search-button').addEventListener('click', async function () {
+        const location  = document.querySelector('input[name="location"]').value;
         const minbudget = document.querySelector('input[name="min_budget"]').value;
         const maxbudget = document.querySelector('input[name="max_budget"]').value;
-        const movein = document.querySelector('input[name="move_in"]').value;
-        const gender = document.querySelector('select[name="gender"]').value;
+        const movein    = document.querySelector('input[name="move_in"]').value;
+        const gender    = document.querySelector('select[name="gender"]').value;
 
-        const { message: roommates } = await frappe.call({
-            method: 'urugano.api.roommates.search_roommate_listings',
-            args: { location, min_budget: minbudget, max_budget: maxbudget, move_in: movein, gender }
-        });
-
-        const listingsContainer = document.getElementById('property-listings');
-        listingsContainer.innerHTML = '';
-
-        if (!roommates || roommates.length === 0) {
-            listingsContainer.innerHTML = `
-                <div class="col-span-full text-center py-20 text-muted">
-                    <p class="text-lg font-medium">No roommate profiles found</p>
-                    <p class="text-sm mt-1">Try adjusting your filters.</p>
-                </div>
-            `;
-            return;
-        }
-
-        roommates.forEach(roommate => {
-            listingsContainer.innerHTML += /* html */`
-                <div class="card card-body p-6 flex flex-col gap-4">
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-brand-light rounded-pill flex items-center justify-center shrink-0">
-                            <i data-lucide="circle-user-round" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <h2 class="font-semibold text-gray-800">${roommate.name1}</h2>
-                            <p class="text-xs text-muted">${roommate.gender}, ${roommate.age} years old</p>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="bg-surface-alt rounded-card p-3 text-center">
-                            <p class="font-semibold text-sm text-gray-800">${roommate.preferred_roommate}</p>
-                            <p class="text-xs text-muted mt-0.5">Preferred Gender</p>
-                        </div>
-                        <div class="bg-surface-alt rounded-card p-3 text-center">
-                            <p class="font-semibold text-sm text-gray-800">${roommate.preferred_location}</p>
-                            <p class="text-xs text-muted mt-0.5">Location</p>
-                        </div>
-                        <div class="bg-surface-alt rounded-card p-3 text-center">
-                            <p class="font-semibold text-sm text-brand">RWF ${roommate.minimum_budget.toLocaleString()}</p>
-                            <p class="text-xs text-muted mt-0.5">Min Budget</p>
-                        </div>
-                        <div class="bg-surface-alt rounded-card p-3 text-center">
-                            <p class="font-semibold text-sm text-brand">RWF ${roommate.maximum_budget.toLocaleString()}</p>
-                            <p class="text-xs text-muted mt-0.5">Max Budget</p>
-                        </div>
-                    </div>
-                    <button class="btn w-full mt-auto">Contact</button>
-                </div>
-            `;
-        });
+        const btn = document.getElementById('search-button');
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Searching…';
         lucide.createIcons();
+
+        try {
+            const _res = await fetch('/api/method/urugano.api.roommates.search_roommate_listings', {
+                method: 'POST',
+                headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+                body: JSON.stringify({ location, min_budget: minbudget, max_budget: maxbudget, move_in: movein, gender })
+            });
+            if (!_res.ok) throw new Error('Search failed');
+            const { message: roommates } = await _res.json();
+
+            const container = document.getElementById('property-listings');
+            container.innerHTML = '';
+
+            if (!roommates || roommates.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-24">
+                        <div class="w-16 h-16 bg-brand-light rounded-2xl flex items-center justify-center mx-auto mb-5">
+                            <i data-lucide="search-x" class="w-8 h-8 text-brand"></i>
+                        </div>
+                        <h2 class="text-xl font-semibold text-gray-800 mb-2">No roommates found</h2>
+                        <p class="text-sm text-muted">Try adjusting your filters.</p>
+                    </div>`;
+                lucide.createIcons();
+                return;
+            }
+
+            roommates.forEach(r => {
+                const initials = r.name1 ? r.name1.trim()[0].toUpperCase() : '?';
+                container.innerHTML += `
+                    <div class="card p-5 flex flex-col gap-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 rounded-full flex items-center justify-center shrink-0 text-white font-bold text-lg"
+                                 style="background: linear-gradient(135deg, oklch(35% 0.115 163) 0%, oklch(52% 0.12 163) 100%);">
+                                ${initials}
+                            </div>
+                            <div class="min-w-0">
+                                <h2 class="font-semibold text-gray-800 truncate">${r.name1}</h2>
+                                <p class="text-xs text-muted">${r.gender} &ensp;·&ensp; ${r.age} yrs</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div class="bg-surface-alt rounded-xl p-3 text-center">
+                                <p class="font-semibold text-sm text-gray-800 truncate">${r.preferred_roommate}</p>
+                                <p class="text-xs text-muted mt-0.5">Pref. Gender</p>
+                            </div>
+                            <div class="bg-surface-alt rounded-xl p-3 text-center">
+                                <p class="font-semibold text-sm text-gray-800 truncate">${r.preferred_location}</p>
+                                <p class="text-xs text-muted mt-0.5">Location</p>
+                            </div>
+                            <div class="bg-brand-light rounded-xl p-3 text-center">
+                                <p class="font-semibold text-sm text-brand">RWF ${r.minimum_budget.toLocaleString()}</p>
+                                <p class="text-xs text-muted mt-0.5">Min Budget</p>
+                            </div>
+                            <div class="bg-brand-light rounded-xl p-3 text-center">
+                                <p class="font-semibold text-sm text-brand">RWF ${r.maximum_budget.toLocaleString()}</p>
+                                <p class="text-xs text-muted mt-0.5">Max Budget</p>
+                            </div>
+                        </div>
+                        <button class="btn w-full mt-auto">Contact</button>
+                    </div>`;
+            });
+
+            lucide.createIcons();
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i data-lucide="search" class="w-4 h-4"></i> Apply Filters';
+            lucide.createIcons();
+        }
     });
 </script>
 {% endblock %}
