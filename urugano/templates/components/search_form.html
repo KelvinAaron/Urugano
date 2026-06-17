@@ -1,0 +1,92 @@
+{% macro search_form(action="/listings") %}
+{% set has_filters = frappe.form_dict.get('location') or
+                     frappe.form_dict.get('property_type') or
+                     frappe.form_dict.get('max_price') or
+                     frappe.form_dict.get('furnished') or
+                     frappe.form_dict.get('number_of_rooms') %}
+<form method="GET" action="{{ action }}">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 items-end">
+
+        <!-- Location -->
+        <div class="lg:col-span-2">
+            <label class="label">
+                <span class="inline-flex items-center gap-1">
+                    <i data-lucide="map-pin" class="w-3 h-3 text-brand"></i>
+                    Location
+                </span>
+            </label>
+            <input name="location" type="text"
+                   placeholder="Anywhere in Kigali"
+                   class="input"
+                   value="{{ frappe.form_dict.get('location', '') }}">
+        </div>
+
+        <!-- Property Type -->
+        <div>
+            <label class="label">
+                <span class="inline-flex items-center gap-1">
+                    <i data-lucide="building-2" class="w-3 h-3 text-brand"></i>
+                    Type
+                </span>
+            </label>
+            <div class="relative">
+                <select name="property_type" class="select pr-8">
+                    <option value="">Any type</option>
+                    <option {% if frappe.form_dict.get('property_type') == 'Apartment' %}selected{% endif %}>Apartment</option>
+                    <option {% if frappe.form_dict.get('property_type') == 'House'     %}selected{% endif %}>House</option>
+                    <option {% if frappe.form_dict.get('property_type') == 'Studio'    %}selected{% endif %}>Studio</option>
+                </select>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-muted absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+            </div>
+        </div>
+
+        <!-- Max Price -->
+        <div>
+            <label class="label">
+                <span class="inline-flex items-center gap-1">
+                    <i data-lucide="banknote" class="w-3 h-3 text-brand"></i>
+                    Max Price (RWF)
+                </span>
+            </label>
+            <input name="max_price" type="number"
+                   placeholder="No limit"
+                   class="input"
+                   value="{{ frappe.form_dict.get('max_price', '') }}">
+        </div>
+
+        <!-- Furnished -->
+        <div>
+            <label class="label">
+                <span class="inline-flex items-center gap-1">
+                    <i data-lucide="sofa" class="w-3 h-3 text-brand"></i>
+                    Furnished
+                </span>
+            </label>
+            <div class="relative">
+                <select name="furnished" class="select pr-8">
+                    <option value="">Any</option>
+                    <option {% if frappe.form_dict.get('furnished') == 'Yes' %}selected{% endif %}>Yes</option>
+                    <option {% if frappe.form_dict.get('furnished') == 'No'  %}selected{% endif %}>No</option>
+                </select>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-muted absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none"></i>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-2 items-end">
+            <button type="submit" class="btn flex-1">
+                <i data-lucide="search" class="w-4 h-4"></i>
+                Search
+            </button>
+            {% if has_filters %}
+            <a href="/listings"
+               title="Clear filters"
+               class="w-10 h-10 rounded-input border border-border flex items-center justify-center text-muted hover:border-brand hover:text-brand hover:bg-brand-light transition-all shrink-0">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </a>
+            {% endif %}
+        </div>
+
+    </div>
+</form>
+{% endmacro %}

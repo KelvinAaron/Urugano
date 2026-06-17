@@ -1,0 +1,82 @@
+{# ── Property Cards ───────────────────────────────────────────────
+   Usage:
+     {% from "urugano/templates/components/property_card.html" import property_card, property_card_compact with context %}
+
+   property_card(property)         — full card for grid listings
+   property_card_compact(property) — smaller card for sidebars
+#}
+
+{% macro property_card(property) %}
+<a href="/listings/detail/{{ property.name }}" class="group block card-listing">
+
+    <!-- Image with overlays -->
+    <div class="relative overflow-hidden" style="height: 13rem;">
+        <img src="{{ property.image }}"
+             alt="{{ property.title }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+
+        <!-- Gradient overlay at bottom -->
+        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);"></div>
+
+        <!-- Price pill — bottom left over image -->
+        <div class="absolute bottom-3 left-3">
+            <span class="glass text-brand-dark font-bold text-sm px-3 py-1.5 rounded-lg shadow-sm border border-white/30">
+                {{ frappe.format_value(property.price, {'fieldtype': 'Currency', 'options': 'RWF'}) }}
+            </span>
+        </div>
+
+        <!-- Type badge — top left -->
+        <div class="absolute top-3 left-3">
+            <span class="bg-brand text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
+                {{ property.property_type }}
+            </span>
+        </div>
+
+        <!-- Furnished badge — top right -->
+        {% if property.furnished %}
+        <div class="absolute top-3 right-3">
+            <span class="bg-accent text-white text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
+                Furnished
+            </span>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Card body -->
+    <div class="card-listing-body">
+        <h2 class="font-semibold text-gray-800 mb-1 group-hover:text-brand transition-colors duration-200 truncate">
+            {{ property.title }}
+        </h2>
+        <div class="flex items-center gap-1.5 text-xs text-muted">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-brand shrink-0"></i>
+            <span class="truncate">{{ property.location }}</span>
+        </div>
+    </div>
+
+</a>
+{% endmacro %}
+
+
+{% macro property_card_compact(property) %}
+<a href="/listings/detail/{{ property.name }}" class="group flex gap-3 p-3 rounded-xl hover:bg-surface-alt border border-transparent hover:border-border transition-all duration-200">
+
+    <!-- Thumbnail -->
+    <div class="w-20 h-16 rounded-lg overflow-hidden shrink-0">
+        <img src="{{ property.image }}"
+             alt="{{ property.title }}"
+             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+    </div>
+
+    <!-- Info -->
+    <div class="flex-1 min-w-0">
+        <h3 class="font-semibold text-sm text-gray-800 group-hover:text-brand transition-colors duration-200 truncate mb-0.5">
+            {{ property.title }}
+        </h3>
+        <p class="text-xs text-muted truncate mb-1.5">{{ property.location }}</p>
+        <span class="badge-success text-xs">
+            {{ frappe.format_value(property.price, {'fieldtype': 'Currency', 'options': 'RWF'}) }}
+        </span>
+    </div>
+
+</a>
+{% endmacro %}

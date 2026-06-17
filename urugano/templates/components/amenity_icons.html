@@ -1,0 +1,48 @@
+{# ── Property Amenity Icons ───────────────────────────────────────
+   Maps every Check field on the Property doctype to a Lucide icon.
+
+   Usage:
+     {% from "urugano/templates/components/amenity_icons.html" import property_amenities with context %}
+     {{ property_amenities(doc) }}
+#}
+
+{% set AMENITY_MAP = [
+    { "field": "furnished",         "label": "Furnished",          "icon": "sofa"            },
+    { "field": "wifi",              "label": "WiFi",               "icon": "wifi"            },
+    { "field": "air_conditioning",  "label": "Air Con",            "icon": "air-vent"        },
+    { "field": "tv",                "label": "Cable TV",           "icon": "tv"              },
+    { "field": "microwave",         "label": "Microwave",          "icon": "microwave"       },
+    { "field": "washing_machine",   "label": "Washer",             "icon": "washing-machine" },
+    { "field": "refrigerator",      "label": "Fridge",             "icon": "refrigerator"    },
+    { "field": "gas_stove",         "label": "Gas Stove",          "icon": "flame"           },
+    { "field": "parking_space",     "label": "Parking",            "icon": "square-parking"  },
+    { "field": "elevator",          "label": "Elevator",           "icon": "arrow-up-down"   },
+    { "field": "swimming_pool",     "label": "Pool",               "icon": "waves-ladder"    },
+    { "field": "gym",               "label": "Gym",                "icon": "dumbbell"        },
+    { "field": "balcony",           "label": "Balcony",            "icon": "fence"           },
+    { "field": "garden__yard",      "label": "Garden",             "icon": "tree-pine"       },
+    { "field": "security_guard",    "label": "Security",           "icon": "shield-check"    },
+    { "field": "cctv",              "label": "CCTV",               "icon": "cctv"            },
+    { "field": "backup_generator",  "label": "Generator",          "icon": "zap"             },
+    { "field": "solar_power",       "label": "Solar Power",        "icon": "sun"             },
+    { "field": "pet_friendly",      "label": "Pet Friendly",       "icon": "paw-print"       },
+    { "field": "house_cleaner",     "label": "Cleaner",            "icon": "sparkles"        }
+] %}
+
+{% macro property_amenities(doc) %}
+{% set ns = namespace(has_any=false) %}
+{% for amenity in AMENITY_MAP %}{% if doc[amenity.field] %}{% set ns.has_any = true %}{% endif %}{% endfor %}
+
+{% if ns.has_any %}
+<div class="flex flex-wrap gap-2">
+    {% for amenity in AMENITY_MAP %}
+    {% if doc[amenity.field] %}
+    <div class="inline-flex items-center gap-1.5 bg-surface-alt border border-border px-3 py-1.5 rounded-full text-xs font-medium text-gray-700 hover:border-brand hover:text-brand transition-colors duration-150">
+        <i data-lucide="{{ amenity.icon }}" class="w-3.5 h-3.5 text-brand shrink-0"></i>
+        <span>{{ amenity.label }}</span>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endif %}
+{% endmacro %}

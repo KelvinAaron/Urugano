@@ -1,0 +1,74 @@
+{# ── Dialog / Modal Component ─────────────────────────────────────
+   Pure vanilla JS — no Alpine.js required.
+
+   USAGE
+   ─────
+   1. Import:
+        {% from "urugano/templates/components/dialog.html" import dialog, dialog_trigger with context %}
+
+   2. Trigger button (anywhere on the page):
+        {{ dialog_trigger("my-dialog", "Open") }}
+        — or any element with onclick="Urugano.openDialog('my-dialog')"
+
+   3. Dialog shell (use {% call %} to inject body content):
+        {% call dialog("my-dialog", "Dialog Title") %}
+          <p>Your content here.</p>
+          <div class="flex justify-end gap-3 mt-6">
+            <button onclick="Urugano.closeDialog('my-dialog')" class="btn-outline">Cancel</button>
+            <button class="btn">Confirm</button>
+          </div>
+        {% endcall %}
+
+   SIZES: pass size="sm|md|lg|xl" to dialog() — default "md"
+#}
+
+{% macro dialog_trigger(id, label, class="btn", type="button") %}
+<button type="{{ type }}"
+        class="{{ class }}"
+        onclick="Urugano.openDialog('{{ id }}')">
+    {{ label }}
+</button>
+{% endmacro %}
+
+{% macro dialog(id, title, size="md") %}
+{% set size_map = {
+    "sm":   "max-w-sm",
+    "md":   "max-w-lg",
+    "lg":   "max-w-2xl",
+    "xl":   "max-w-4xl",
+    "full": "max-w-full mx-4"
+} %}
+{% set width = size_map.get(size, "max-w-lg") %}
+
+<div id="dialog-{{ id }}"
+     data-dialog-id="{{ id }}"
+     style="display:none; position:fixed; inset:0; z-index:200; align-items:center; justify-content:center; padding:1rem;">
+
+    <!-- Backdrop -->
+    <div class="dialog-backdrop absolute inset-0 bg-black/60"
+         style="opacity:0; transition: opacity 200ms ease;"
+         onclick="Urugano.closeDialog('{{ id }}')">
+    </div>
+
+    <!-- Panel -->
+    <div class="dialog-panel relative bg-surface rounded-2xl shadow-2xl w-full {{ width }} max-h-[90vh] flex flex-col"
+         style="opacity:0; transform:scale(0.95); transition: opacity 200ms ease, transform 200ms ease;">
+
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-4 border-b border-border shrink-0">
+            <h2 class="text-base font-semibold text-gray-800" style="font-family: var(--font-display)">{{ title }}</h2>
+            <button onclick="Urugano.closeDialog('{{ id }}')"
+                    class="w-8 h-8 flex items-center justify-center rounded-lg text-muted hover:text-gray-700 hover:bg-surface-alt transition-colors"
+                    aria-label="Close">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+        <!-- Body -->
+        <div class="px-6 py-5 overflow-y-auto">
+            {{ caller() }}
+        </div>
+
+    </div>
+</div>
+{% endmacro %}

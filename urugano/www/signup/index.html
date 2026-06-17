@@ -1,17 +1,65 @@
-{# urugano/www/property/index.html #}
-
 {% extends "urugano/templates/pages/web.html" %}
+{% block title %}Create Account — Urugano Realty{% endblock %}
 
 {% block page_content %}
-<section class="flex justify-center items-center">
-    <div class="flex flex-col gap-4 bg-white p-4 rounded-lg min-w-[400px] min-h-[400px]">
-        <h1 class="text-2xl font-semibold mb-4 self-center">What do you want to sign up as</h1>
-        <div class="flex flex-col gap-4">
-            <a href="/signup/landlord_signup" class="btn">Landlord</a>
-            <a href="/signup/guest_signup" class="btn">Guest</a>
+<section class="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4 py-16 bg-surface-alt">
+    <div class="w-full max-w-2xl">
+
+        <div class="text-center mb-10">
+            <p class="text-xs font-semibold uppercase tracking-widest text-accent mb-2">Get Started</p>
+            <h1 class="text-3xl font-bold text-gray-900 mb-2" style="font-family: var(--font-display)">Create your account</h1>
+            <p class="text-sm text-muted">How will you be using Urugano Realty?</p>
         </div>
-        <p class="text-center text-gray-500">Already have an account? <a href="/login" class="text-blue-600">Login</a></p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+            <!-- Landlord Card -->
+            <a href="/signup/landlord_signup"
+               class="card p-8 flex flex-col items-center gap-5 text-center
+                      hover:border-brand hover:shadow-lg hover:-translate-y-0.5
+                      transition-all duration-250 cursor-pointer group"
+               style="border: 2px solid var(--color-border);">
+
+                <div class="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-200"
+                     style="background-color: oklch(94% 0.04 163);">
+                    <i data-lucide="building-2" class="w-8 h-8 text-brand group-hover:scale-110 transition-transform duration-200"></i>
+                </div>
+                <div>
+                    <h2 class="font-semibold text-gray-800 text-xl mb-1" style="font-family: var(--font-display)">Landlord</h2>
+                    <p class="text-sm text-muted leading-relaxed">List and manage your properties on the platform</p>
+                </div>
+                <span class="btn-outline text-xs py-2 px-6 group-hover:bg-brand group-hover:text-white group-hover:border-brand transition-all duration-200">
+                    Get Started →
+                </span>
+            </a>
+
+            <!-- Guest / Tenant Card -->
+            <a href="/signup/guest_signup"
+               class="card p-8 flex flex-col items-center gap-5 text-center
+                      hover:border-brand hover:shadow-lg hover:-translate-y-0.5
+                      transition-all duration-250 cursor-pointer group"
+               style="border: 2px solid var(--color-border);">
+
+                <div class="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-200"
+                     style="background-color: oklch(97% 0.04 68);">
+                    <i data-lucide="search" class="w-8 h-8 group-hover:scale-110 transition-transform duration-200" style="color: oklch(55% 0.16 68)"></i>
+                </div>
+                <div>
+                    <h2 class="font-semibold text-gray-800 text-xl mb-1" style="font-family: var(--font-display)">Guest / Tenant</h2>
+                    <p class="text-sm text-muted leading-relaxed">Find and book your next home in Rwanda</p>
+                </div>
+                <span class="btn-outline text-xs py-2 px-6 group-hover:bg-brand group-hover:text-white group-hover:border-brand transition-all duration-200">
+                    Get Started →
+                </span>
+            </a>
+
+        </div>
+
+        <p class="text-center text-sm text-muted mt-8">
+            Already have an account?
+            <a href="/login" class="text-brand font-semibold hover:text-brand-hover transition-colors">Sign in</a>
+        </p>
+
     </div>
 </section>
 {% endblock %}
-
